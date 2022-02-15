@@ -26,7 +26,7 @@
             android:padding="@dimen/_5sdp">
 
 
-            <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+            <com.nic.AGMTAssets.Support.MyCustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -39,7 +39,7 @@
                 android:textStyle="normal"
                 customfontdemo:fontName="@string/font_normal" />
 
-            <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+            <com.nic.AGMTAssets.Support.MyCustomTextView
                 android:id="@+id/district_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             android:padding="@dimen/_5sdp">
 
 
-            <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+            <com.nic.AGMTAssets.Support.MyCustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -80,7 +80,7 @@
                 android:textStyle="normal"
                 customfontdemo:fontName="@string/font_normal" />
 
-            <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+            <com.nic.AGMTAssets.Support.MyCustomTextView
                 android:id="@+id/block_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

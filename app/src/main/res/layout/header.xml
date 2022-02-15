@@ -13,7 +13,7 @@
         android:background="@mipmap/tamilnadu_logo"
         android:scaleType="centerCrop" />
 
-    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+    <com.nic.AGMTAssets.Support.MyCustomTextView
         android:id="@+id/rural"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:textStyle="bold"
         customfontdemo:fontName="@string/font_medium" />
 
-    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+    <com.nic.AGMTAssets.Support.MyCustomTextView
         android:id="@+id/amp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         android:textStyle="bold"
         customfontdemo:fontName="@string/font_medium" />
 
-    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+    <com.nic.AGMTAssets.Support.MyCustomTextView
         android:id="@+id/dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

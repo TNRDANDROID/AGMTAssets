@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Road Assets Monitoring And Tracking</string>
+    <string name="app_name" translatable="false">AGMTAssets</string>
     <string name="hint_password" translatable="false">Password</string>
     <string name="hint_username" translatable="false">UserName</string>
     <string name="btn_login" translatable="false">Login</string>
@@ -14,5 +14,21 @@
     <string name="marquee" translatable="false">Your internet seems</string>
     <string name="app_Name" translatable="false">Road Assets \n Monitoring \n And Tracking</string>
     <string name="init_vector" translatable="false">2SN22SkJGDyOAXUU</string>
-    <string name="font_circular_book"  translatable="false">circular-book.ttf</string>
+    <string name="font_circular_book" translatable="false">circular-book.ttf</string>
+    <string name="lexenddeca_regular">lexenddeca_regular.ttf</string>
+    <string name="lexenddeca_semibold">lexenddeca_semibold.ttf</string>
+    <string name="lexenddeca_thin">lexenddeca_thin.ttf</string>
+    <string name="lexenddeca_medium">lexenddeca_medium.ttf</string>
+    <string name="lexenddeca_light">lexenddeca_light.ttf</string>
+    <string name="lexenddeca_extralight">lexenddeca_extralight.ttf</string>
+    <string name="lexenddeca_extrabold">lexenddeca_extrabold.ttf</string>
+    <string name="lexenddeca_bold">lexenddeca_bold.ttf</string>
+    <string name="lexenddeca_black">lexenddeca_black.ttf</string>
+    <string name="software_designed_amp_developed_by_nic"><![CDATA[Software Designed & Developed by NIC]]></string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="user_name">User Name</string>
+    <string name="welcome">Welcome</string>
+    <string name="choose_habitation">Choose Habitation</string>
+    <string name="habitation_name">Habitation Name</string>
 </resources>

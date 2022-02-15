@@ -41,7 +41,7 @@
                     android:background="@drawable/gradient_blue"
                     android:orientation="vertical">
 
-                    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+                    <com.nic.AGMTAssets.Support.MyCustomTextView
                         android:id="@+id/view_offline_image"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                         android:layout_marginLeft="15dp"
                         android:background="#FFFFFF" />
 
-                    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+                    <com.nic.AGMTAssets.Support.MyCustomTextView
                         android:id="@+id/third_level_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold" />
 
-                    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+                    <com.nic.AGMTAssets.Support.MyCustomTextView
                         android:id="@+id/loc_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

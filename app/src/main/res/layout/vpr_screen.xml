@@ -24,7 +24,7 @@
 
         android:orientation="horizontal">
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/district_card"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_130sdp"
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+                    <com.nic.AGMTAssets.Support.MyCustomTextView
                         android:id="@+id/road_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                 <!--</RelativeLayout>-->
 
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 
@@ -114,7 +114,7 @@
                  android:background="@mipmap/tick_mark"
                   />
 
-                <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+                <com.nic.AGMTAssets.Support.MyCustomTextView
                     android:id="@+id/road_village_name"
                     android:layout_width="@dimen/_170sdp"
                     android:layout_height="wrap_content"
@@ -133,7 +133,7 @@
                 android:layout_below="@id/road_village_name"
                 android:layout_alignParentBottom="true">
 
-                <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+                <com.nic.AGMTAssets.Support.MyCustomTextView
                     android:id="@+id/road_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

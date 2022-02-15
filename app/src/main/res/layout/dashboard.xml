@@ -24,7 +24,7 @@
             android:background="@drawable/ic_autorenew_white_24dp"
             android:backgroundTint="@android:color/black"/>
 
-        <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+        <com.nic.AGMTAssets.Support.MyCustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -64,7 +64,7 @@
             android:padding="@dimen/_5sdp">
 
 
-            <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+            <com.nic.AGMTAssets.Support.MyCustomTextView
                             android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -77,7 +77,7 @@
                 android:textStyle="normal"
                 customfontdemo:fontName="@string/font_normal" />
 
-            <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+            <com.nic.AGMTAssets.Support.MyCustomTextView
                 android:id="@+id/district_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
             android:padding="@dimen/_5sdp">
 
 
-            <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+            <com.nic.AGMTAssets.Support.MyCustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -118,7 +118,7 @@
                 android:textStyle="normal"
                 customfontdemo:fontName="@string/font_normal" />
 
-            <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+            <com.nic.AGMTAssets.Support.MyCustomTextView
                 android:id="@+id/block_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
 
     </LinearLayout>
 
-    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+    <com.nic.AGMTAssets.Support.MyCustomTextView
         android:id="@+id/on_road_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                     <!--android:background="@mipmap/youtube"-->
                     <!--android:scaleType="fitCenter" />-->
 
-                    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+                    <com.nic.AGMTAssets.Support.MyCustomTextView
                         android:id="@+id/VPR_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -221,7 +221,7 @@
                     android:background="@drawable/panchayat"
                     android:orientation="vertical">
 
-                    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+                    <com.nic.AGMTAssets.Support.MyCustomTextView
                         android:id="@+id/PUR_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -265,7 +265,7 @@
                     android:background="@drawable/vpr_pur"
                     android:orientation="vertical">
 
-                    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+                    <com.nic.AGMTAssets.Support.MyCustomTextView
                         android:id="@+id/VPR_PUR_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -290,7 +290,7 @@
                     android:background="@drawable/road"
                     android:orientation="vertical">
 
-                    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+                    <com.nic.AGMTAssets.Support.MyCustomTextView
                         android:id="@+id/Highway_Road_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -318,7 +318,7 @@
             android:layout_centerInParent="true"
             android:background="@drawable/circlewhite" />
 
-        <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+        <com.nic.AGMTAssets.Support.MyCustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -330,7 +330,7 @@
 
     </RelativeLayout>
 
-    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+    <com.nic.AGMTAssets.Support.MyCustomTextView
         android:id="@+id/sync"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -355,7 +355,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/_5sdp">
 
-        <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+        <com.nic.AGMTAssets.Support.MyCustomTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -369,7 +369,7 @@
 
     </LinearLayout>
 
-    <com.nic.RdAssetTrackingAndMonitoringSystem.Support.MyCustomTextView
+    <com.nic.AGMTAssets.Support.MyCustomTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

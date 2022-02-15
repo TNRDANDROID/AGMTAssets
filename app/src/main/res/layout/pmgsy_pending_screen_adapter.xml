@@ -6,7 +6,7 @@
     android:orientation="vertical"
      >
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/android_card_view_example"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -256,5 +256,5 @@
 
         </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

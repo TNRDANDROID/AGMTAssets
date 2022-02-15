@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Road Assets And Tracking</string>
+    <string name="app_name">AGMTAssets</string>
+
+    <string name="lexenddeca_regular">lexenddeca_regular.ttf</string>
+    <string name="lexenddeca_semibold">lexenddeca_semibold.ttf</string>
+    <string name="lexenddeca_thin">lexenddeca_thin.ttf</string>
+    <string name="lexenddeca_medium">lexenddeca_medium.ttf</string>
+    <string name="lexenddeca_light">lexenddeca_light.ttf</string>
+    <string name="lexenddeca_extralight">lexenddeca_extralight.ttf</string>
+    <string name="lexenddeca_extrabold">lexenddeca_extrabold.ttf</string>
+    <string name="lexenddeca_bold">lexenddeca_bold.ttf</string>
+    <string name="lexenddeca_black">lexenddeca_black.ttf</string>
+    <string name="software_designed_amp_developed_by_nic"><![CDATA[Software Designed & Developed by NIC]]></string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="user_name">User Name</string>
+    <string name="welcome">Welcome</string>
+    <string name="choose_habitation">Choose Habitation</string>
 </resources>
