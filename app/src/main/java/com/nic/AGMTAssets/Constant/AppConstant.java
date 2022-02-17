@@ -129,4 +129,5 @@ public class AppConstant {
     public static String HABITATION_NAME_TA = "habitation_name_ta";
     public static String KEY_HABITATION_LIST_DISTRICT_BLOCK_WISE = "habitation_list_district_block_wise";
     public static String KEY_AGMT_FORM_LIST = "agmt_form_list";
+    public static String KEY_agmt_list_of_asset = "agmt_list_of_asset";
 }

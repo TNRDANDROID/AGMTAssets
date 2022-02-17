@@ -15,7 +15,7 @@
     <color name="black_overlay">#66000000</color>
     <color name="black">#000000</color>
     <color name="vertical_line_grey">#EAE9E9</color>
-    <color name="vertical_line_light_blue">#DDDFEA</color>
+    <color name="vertical_line_light_blue">#DDE0F4</color>
     <color name="primary_text_color">#2A4AFB</color>
 
     <color name="blue_background" tools:ignore="MissingDefaultResource">#242b35</color>

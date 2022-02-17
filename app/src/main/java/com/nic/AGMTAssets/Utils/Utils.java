@@ -340,5 +340,14 @@ public class Utils {
         Log.d("KEY_AGMT_FORM_LIST", "" + dataSet);
         return dataSet;
     }
+    public static JSONObject agmt_list_of_asset(Activity activity) throws JSONException {
+        prefManager = new PrefManager(activity);
+        JSONObject dataSet = new JSONObject();
+        dataSet.put(AppConstant.KEY_SERVICE_ID, AppConstant.KEY_agmt_list_of_asset);
+        dataSet.put(AppConstant.DISTRICT_CODE, prefManager.getDistrictCode());
+        dataSet.put(AppConstant.BLOCK_CODE, prefManager.getBlockCode());
+        Log.d("KEY_AGMT_FORM_LIST", "" + dataSet);
+        return dataSet;
+    }
 
 }

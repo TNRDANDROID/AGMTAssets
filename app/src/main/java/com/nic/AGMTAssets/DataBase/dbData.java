@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.nic.AGMTAssets.Constant.AppConstant;
 import com.nic.AGMTAssets.Model.RoadListValue;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,13 +65,150 @@ public class dbData {
         values.put("form_name_ta", kvvtSurvey.getForm_name_ta());
         values.put("form_number", kvvtSurvey.getForm_number());
         values.put("form_id", kvvtSurvey.getForm_id());
+        values.put("no_of_photos", kvvtSurvey.getNo_of_photos());
+        values.put("type_of_photos", kvvtSurvey.getType_of_photos());
 
         long id = db.insert(DBHelper.AGMT_FORM_TABLE,null,values);
         Log.d("Inserted_id_agmt", String.valueOf(id));
 
         return kvvtSurvey;
     }
+    public RoadListValue insertAGMTFormCommonData(RoadListValue kvvtSurvey) {
 
+        ContentValues values = new ContentValues();
+        values.put("form_id", kvvtSurvey.getForm_id());
+        values.put("asset_id", kvvtSurvey.getAsseet_id());
+        values.put("state_code", kvvtSurvey.getState_code());
+        values.put("bcode", kvvtSurvey.getPmgsyBcode());
+        values.put("pvcode", kvvtSurvey.getPmgsyPvcode());
+        values.put("hab_code", kvvtSurvey.getPmgsyHabcode());
+        values.put("disp_value", kvvtSurvey.getText_value());
+
+
+        long id = db.insert(DBHelper.AGMT_FORM_DISPLAY_COMMON_DATA_TABLE,null,values);
+        Log.d("Inserted_id_co_agmt", String.valueOf(id));
+
+        return kvvtSurvey;
+    }
+    public RoadListValue insertAGMTFormDisplayData(RoadListValue kvvtSurvey,JSONArray jsonArray) {
+
+        ContentValues values = new ContentValues();
+        values.put("form_id", kvvtSurvey.getForm_id());
+        values.put("asset_id", kvvtSurvey.getAsseet_id());
+        values.put("state_code", kvvtSurvey.getState_code());
+        values.put("bcode", kvvtSurvey.getPmgsyBcode());
+        values.put("pvcode", kvvtSurvey.getPmgsyPvcode());
+        values.put("hab_code", kvvtSurvey.getPmgsyHabcode());
+        values.put("disp_id", kvvtSurvey.getDisp_id());
+        values.put("column_type", kvvtSurvey.getColumn_type());
+        values.put("disp_name", kvvtSurvey.getDisp_name());
+        values.put("disp_value", kvvtSurvey.getDisp_value());
+        values.put("text_value", jsonArray.toString());
+
+        long id = db.insert(DBHelper.AGMT_FORM_DISPLAY_DATA_TABLE,null,values);
+        Log.d("Inserted_id_dis_agmt", String.valueOf(id));
+
+        return kvvtSurvey;
+    }
+
+    public ArrayList<RoadListValue> getAGMTDisplayDataHabitationwise(String hab_code,String type,String asset_id) {
+
+        ArrayList<RoadListValue> cards = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            if(type.equals("all")){
+                cursor = db.rawQuery("select * from "+DBHelper.AGMT_FORM_DISPLAY_DATA_TABLE,null);
+
+            }
+            else if(type.equals("no")){
+                cursor = db.rawQuery("select * from " + DBHelper.AGMT_FORM_DISPLAY_DATA_TABLE + " where hab_code = " + hab_code, null);
+
+            }
+            else {
+                cursor = db.rawQuery("select * from " + DBHelper.AGMT_FORM_DISPLAY_DATA_TABLE + " where hab_code = " + hab_code+" and asset_id = "+ asset_id, null);
+            }
+            // cursor = db.query(CardsDBHelper.TABLE_CARDS,
+            //       COLUMNS, null, null, null, null, null);
+
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    RoadListValue card = new RoadListValue();
+                    card.setForm_id((cursor.getString(cursor
+                            .getColumnIndexOrThrow("form_id"))));
+                    card.setAsseet_id((cursor.getString(cursor
+                            .getColumnIndexOrThrow("asset_id"))));
+                    card.setState_code((cursor.getString(cursor
+                            .getColumnIndexOrThrow("state_code"))));
+                    card.setPmgsyBcode(Integer.parseInt(cursor.getString(cursor
+                            .getColumnIndexOrThrow("bcode"))));
+                    card.setPmgsyPvcode(Integer.parseInt(cursor.getString(cursor
+                            .getColumnIndexOrThrow("pvcode"))));
+                    card.setPmgsyHabcode(Integer.parseInt(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code"))));
+                    card.setDisp_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("disp_id")));
+                    card.setColumn_type(cursor.getString(cursor
+                            .getColumnIndexOrThrow("column_type")));
+                    card.setDisp_name(cursor.getString(cursor
+                            .getColumnIndexOrThrow("disp_name")));
+                    card.setDisp_value(cursor.getString(cursor
+                            .getColumnIndexOrThrow("disp_value")));
+                    card.setText_value(cursor.getString(cursor
+                            .getColumnIndexOrThrow("text_value")));
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+    public ArrayList<RoadListValue> getAGMTCommonDataHabitationwise(String hab_code,String form_id) {
+
+        ArrayList<RoadListValue> cards = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+
+            cursor = db.rawQuery("select * from "+DBHelper.AGMT_FORM_DISPLAY_COMMON_DATA_TABLE+" where hab_code = "+hab_code+" and form_id = "+form_id,null);
+            // cursor = db.query(CardsDBHelper.TABLE_CARDS,
+            //       COLUMNS, null, null, null, null, null);
+
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    RoadListValue card = new RoadListValue();
+                    card.setForm_id((cursor.getString(cursor
+                            .getColumnIndexOrThrow("form_id"))));
+                    card.setAsseet_id((cursor.getString(cursor
+                            .getColumnIndexOrThrow("asset_id"))));
+                    card.setState_code((cursor.getString(cursor
+                            .getColumnIndexOrThrow("state_code"))));
+                    card.setPmgsyBcode(Integer.parseInt(cursor.getString(cursor
+                            .getColumnIndexOrThrow("bcode"))));
+                    card.setPmgsyPvcode(Integer.parseInt(cursor.getString(cursor
+                            .getColumnIndexOrThrow("pvcode"))));
+                    card.setPmgsyHabcode(Integer.parseInt(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code"))));
+                    card.setText_value(cursor.getString(cursor
+                            .getColumnIndexOrThrow("disp_value")));
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
     public ArrayList<RoadListValue> getAll_Habitation(String dcode, String bcode) {
 
         ArrayList<RoadListValue> cards = new ArrayList<>();
@@ -164,6 +302,10 @@ public class dbData {
                             .getColumnIndexOrThrow("form_number")));
                     card.setForm_name_ta(cursor.getString(cursor
                             .getColumnIndexOrThrow("form_name_ta")));
+                    card.setNo_of_photos(cursor.getString(cursor
+                            .getColumnIndexOrThrow("no_of_photos")));
+                    card.setType_of_photos(cursor.getString(cursor
+                            .getColumnIndexOrThrow("type_of_photos")));
 
                     cards.add(card);
                 }
@@ -177,6 +319,87 @@ public class dbData {
         }
         return cards;
     }
+    public ArrayList<RoadListValue> getAgmtImages(String form_id,String asset_id,String hab_code) {
+
+        ArrayList<RoadListValue> cards = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE+" where form_id = "+form_id+" and asset_id = "+asset_id+" and hab_code = "+hab_code,null);
+
+            //cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE,null);
+            // cursor = db.query(CardsDBHelper.TABLE_CARDS,
+            //       COLUMNS, null, null, null, null, null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    byte[] photo = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
+                    byte[] decodedString = Base64.decode(photo, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    RoadListValue card = new RoadListValue();
+
+                    card.setForm_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("form_id")));
+                    card.setAsseet_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("asset_id")));
+                    card.setPmgsyHabcode(Integer.valueOf(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code"))));
+                    card.setSl_no(cursor.getString(cursor
+                            .getColumnIndexOrThrow("sl_no")));
+                    card.setLatitude(cursor.getString(cursor
+                            .getColumnIndexOrThrow("latitude")));
+                    card.setLongitude(cursor.getString(cursor
+                            .getColumnIndexOrThrow("longitude")));
+                    card.setImage(decodedByte);
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+    public ArrayList<RoadListValue> getUniqueAgmtImages() {
+
+        ArrayList<RoadListValue> cards = new ArrayList<>();
+        Cursor cursor = null;
+        String query = "select distinct  a.form_id,a.asset_id,a.hab_code,b.disp_value from agmt_save_image_table as a left join agmt_form_display_common_data_table as b on a.form_id=b.form_id and a.asset_id=b.asset_id and a.hab_code=b.hab_code";
+        try {
+            //cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE,null);
+            cursor = db.rawQuery(query,null);
+            // cursor = db.query(CardsDBHelper.TABLE_CARDS,
+            //       COLUMNS, null, null, null, null, null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+
+                    RoadListValue card = new RoadListValue();
+
+                    card.setForm_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("form_id")));
+                    card.setAsseet_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("asset_id")));
+                    card.setPmgsyHabcode(Integer.valueOf(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code"))));
+                    card.setDisp_value(cursor.getString(cursor
+                            .getColumnIndexOrThrow("disp_value")));
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+
 
 
 
@@ -1520,6 +1743,11 @@ public class dbData {
         db.execSQL("delete from "+ DBHelper.PMGSY_HABITATION_LIST_TABLE);
         db.execSQL("delete from "+ DBHelper.BRIDGES_CULVERT +" WHERE image_flag = 1 ");
         db.execSQL("delete from "+ DBHelper.SAVE_IMAGE_HABITATION_TABLE +" WHERE server_flag = 1 ");
+        db.execSQL("delete from "+ DBHelper.HABITATION_TABLE +" WHERE server_flag = 1 ");
+        db.execSQL("delete from "+ DBHelper.AGMT_FORM_TABLE +" WHERE server_flag = 1 ");
+        db.execSQL("delete from "+ DBHelper.AGMT_FORM_DISPLAY_DATA_TABLE +" WHERE server_flag = 1 ");
+        db.execSQL("delete from "+ DBHelper.AGMT_FORM_DISPLAY_COMMON_DATA_TABLE +" WHERE server_flag = 1 ");
+        db.execSQL("delete from "+ DBHelper.AGMT_SAVE_IMAGE_TABLE +" WHERE server_flag = 1 ");
     }
 
 }

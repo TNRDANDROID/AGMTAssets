@@ -126,8 +126,8 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
         imageView = (ImageView) findViewById(R.id.image_view);
         image_view_preview = (ImageView) findViewById(R.id.image_view_preview);
         description_layout = (LinearLayout) findViewById(R.id.description_layout);
-        description = (MyEditTextView ) findViewById(R.id.description);
-        assetSave = (Button) findViewById(R.id.asset_save);
+        //description = (MyEditTextView ) findViewById(R.id.description);
+        //assetSave = (Button) findViewById(R.id.asset_save);
         back_img = (ImageView) findViewById(R.id.back_img);
         mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mlocListener = new MyLocationListener();
@@ -174,7 +174,7 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
             case R.id.back_img:
                 onBackPress();
                 break;
-            case R.id.asset_save:
+           /* case R.id.asset_save:
                 if(screen_type.equalsIgnoreCase("Habitation")){
                     saveImage_habitation();
                 }
@@ -184,7 +184,7 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
                 else if(screen_type.equalsIgnoreCase("bridgeLevel")) {
                     saveImageBridges();
                 }
-                break;
+                break;*/
         }
     }
 

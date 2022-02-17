@@ -10,21 +10,25 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nic.AGMTAssets.Activity.AgmtTypeList;
-import com.nic.AGMTAssets.DataBase.dbData;
+import com.nic.AGMTAssets.Activity.ViewFormDetails;
 import com.nic.AGMTAssets.Model.RoadListValue;
 import com.nic.AGMTAssets.R;
 import com.nic.AGMTAssets.Session.PrefManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
-public class AgmtFormAdapter extends RecyclerView.Adapter<AgmtFormAdapter.MyViewHolder>{
+public class AgmtFormDetailsAdapter extends RecyclerView.Adapter<AgmtFormDetailsAdapter.MyViewHolder>{
 
     private final com.nic.AGMTAssets.DataBase.dbData dbData;
     private Context context;
     private List<RoadListValue> habitationList;
     private PrefManager prefManager;
 
-    public AgmtFormAdapter(Context context, List<RoadListValue> assetListValues, com.nic.AGMTAssets.DataBase.dbData dbData) {
+    public AgmtFormDetailsAdapter(Context context, List<RoadListValue> assetListValues, com.nic.AGMTAssets.DataBase.dbData dbData) {
         this.context = context;
         this.habitationList = assetListValues;
         this.dbData = dbData;
@@ -32,8 +36,8 @@ public class AgmtFormAdapter extends RecyclerView.Adapter<AgmtFormAdapter.MyView
     }
 
     @Override
-    public AgmtFormAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.habitation_recyler_item_design, parent, false);
+    public AgmtFormDetailsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.form_details_item_design, parent, false);
         return new MyViewHolder(itemView);
     }
 
@@ -58,14 +62,14 @@ public class AgmtFormAdapter extends RecyclerView.Adapter<AgmtFormAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(final AgmtFormAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final AgmtFormDetailsAdapter.MyViewHolder holder, final int position) {
 
-        holder.habitation_name.setText(habitationList.get(position).getForm_name_ta());
-
+       holder.habitation_name.setText(habitationList.get(position).getText_value());
+       //holder.habitation_name.setText("AssetId:"+habitationList.get(position).getAsseet_id()+"\n"+habitationList.get(position).getDisp_name()+habitationList.get(position).getDisp_value());
         holder.hab_rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AgmtTypeList)context).gotoViewFormDetails(position);
+                ((ViewFormDetails)context).gotoViewFormDetails(position);
             }
         });
 

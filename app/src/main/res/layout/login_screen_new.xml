@@ -60,6 +60,7 @@
         android:background="@drawable/rect_topside_curve_white_bg">
 
         <RelativeLayout
+            android:id="@+id/rl6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -187,6 +188,33 @@
             </RelativeLayout>
 
         </RelativeLayout>
+        <TextView
+            android:layout_below="@+id/rl6"
+            android:id="@+id/tv_version_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/_34sdp"
+            android:padding="@dimen/_13sdp"
+            android:fontFamily="@string/lexenddeca_regular"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp" />
+
+        <com.nic.AGMTAssets.Support.MyCustomTextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/_13sdp"
+            android:text="@string/software_designed_amp_developed_by_nic"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"
+            android:fontFamily="@string/lexenddeca_extralight" />
+
     </RelativeLayout>
 
     <LinearLayout
@@ -339,32 +367,6 @@
 
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/tv_version_number"
-        style="@style/font_circular_medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="@dimen/_34sdp"
-        android:padding="@dimen/_13sdp"
-        android:fontFamily="@string/lexenddeca_regular"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_15sdp" />
-
-    <com.nic.AGMTAssets.Support.MyCustomTextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:padding="@dimen/_13sdp"
-        android:text="@string/software_designed_amp_developed_by_nic"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_15sdp"
-        android:fontFamily="@string/lexenddeca_extralight" />
 
 
 </RelativeLayout>

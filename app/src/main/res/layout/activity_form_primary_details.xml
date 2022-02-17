@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.nic.AGMTAssets.Activity.HabitationClass">
+    tools:context="com.nic.AGMTAssets.Activity.FormPrimaryDetails">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,16 +24,6 @@
                 android:id="@+id/user_profile"
                 android:src="@drawable/user_profile_new_icon"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:layout_centerVertical="true"/>
-            <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_alignParentLeft="true"
-                android:id="@+id/log_out"
-                android:src="@drawable/power_off_2"
-                android:tint="@color/white"
-                android:padding="@dimen/_6sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_centerVertical="true"/>
 
             <RelativeLayout
@@ -67,46 +57,31 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_text_color"
                 android:fontFamily="@string/lexenddeca_regular"
                 android:textSize="@dimen/_13sdp"
                 android:padding="@dimen/_10sdp"
                 android:id="@+id/text_view_1"
-                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="@string/choose_habitation"/>
-
-            <RelativeLayout
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:padding="@dimen/_10sdp"
-                android:id="@+id/sync_data_rl"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:background="@drawable/text_bg_rect">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/upload_icon"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_3sdp"
-                    android:src="@drawable/ic_upload_icon"
-                    android:layout_alignParentEnd="true"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:fontFamily="@string/lexenddeca_regular"
                 android:textSize="@dimen/_13sdp"
-                android:id="@+id/sync_data"
-                android:text="@string/upload_data"/>
-            </RelativeLayout>
+                android:padding="@dimen/_10sdp"
+                android:id="@+id/form_name"
+                android:layout_below="@+id/text_view_1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/choose_habitation"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/text_view_1"
+                android:layout_below="@+id/form_name"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/rect_topside_curve_white_bg">
 
@@ -125,6 +100,39 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_20sdp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    >
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:layout_marginRight="@dimen/_30sdp"
+                        android:text="@string/take_photo"
+                        android:id="@+id/take_photo"
+                        android:background="@drawable/btn_bg_"
+                        android:textColor="@color/white"
+                        android:fontFamily="@string/lexenddeca_regular"/>
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:layout_marginRight="@dimen/_30sdp"
+                        android:text="@string/view_photos"
+                        android:id="@+id/view_photo"
+                        android:background="@drawable/log_in_btn_bg_new"
+                        android:textColor="@color/primary_text_color"
+                        android:fontFamily="@string/lexenddeca_regular"/>
+
+                </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>

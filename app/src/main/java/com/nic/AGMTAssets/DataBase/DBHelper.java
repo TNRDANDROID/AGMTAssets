@@ -18,6 +18,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String BRIDGES_CULVERT = "BridgesAndCulvert";
     public static final String HABITATION_TABLE = "habitation_table";
     public static final String AGMT_FORM_TABLE = "agmt_form_table";
+    public static final String AGMT_FORM_DISPLAY_DATA_TABLE = "agmt_form_display_data_table";
+    public static final String AGMT_FORM_DISPLAY_DATA_TABLE_JSONARRAY = "agmt_form_display_data_table_json_array";
+    public static final String AGMT_FORM_DISPLAY_COMMON_DATA_TABLE = "agmt_form_display_common_data_table";
+    public static final String AGMT_SAVE_IMAGE_TABLE = "agmt_save_image_table";
 
 
     private Context context;
@@ -40,9 +44,42 @@ public class DBHelper extends SQLiteOpenHelper {
                 "habitation_name_ta TEXT,"+
                 "habitation_name TEXT)");
 
+        db.execSQL("CREATE TABLE " + AGMT_FORM_DISPLAY_COMMON_DATA_TABLE + " ("
+                        + "form_id TEXT," +
+                        "asset_id TEXT," +
+                        "state_code TEXT," +
+                        "bcode TEXT," +
+                        "pvcode TEXT," +
+                        "disp_value TEXT," +
+                        "hab_code TEXT)");
+        db.execSQL("CREATE TABLE " + AGMT_FORM_DISPLAY_DATA_TABLE + " ("
+                        + "form_id TEXT," +
+                        "asset_id TEXT," +
+                        "state_code TEXT," +
+                        "bcode TEXT," +
+                        "pvcode TEXT," +
+                        "hab_code TEXT," +
+                        "disp_id TEXT," +
+                        "text_value TEXT," +
+                        "column_type TEXT," +
+                        "disp_name TEXT," +
+                        "disp_value TEXT)");
+
+        db.execSQL("CREATE TABLE " + AGMT_SAVE_IMAGE_TABLE + " ("
+                        + "form_id TEXT," +
+                        "asset_id TEXT," +
+                        "hab_code TEXT," +
+                        "sl_no TEXT," +
+                        "latitude TEXT," +
+                        "photograph_remark TEXT," +
+                        "longitude TEXT," +
+                        "image blob)");
+
         db.execSQL("CREATE TABLE " + AGMT_FORM_TABLE + " ("
                 + "form_id TEXT," +
                 "form_number TEXT," +
+                "no_of_photos TEXT," +
+                "type_of_photos TEXT," +
                 "form_name_ta TEXT)");
 
         db.execSQL("CREATE TABLE " + ROAD_LIST_TABLE + " ("
@@ -162,6 +199,9 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS " + SAVE_IMAGE_HABITATION_TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + HABITATION_TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + AGMT_FORM_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + AGMT_FORM_DISPLAY_DATA_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + AGMT_FORM_DISPLAY_COMMON_DATA_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + AGMT_SAVE_IMAGE_TABLE);
             onCreate(db);
         }
     }

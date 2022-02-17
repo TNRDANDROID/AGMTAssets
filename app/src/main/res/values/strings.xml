@@ -30,5 +30,37 @@
     <string name="user_name">User Name</string>
     <string name="welcome">Welcome</string>
     <string name="choose_habitation">Choose Habitation</string>
+
+    <string name="take_photo">Take Photo</string>
+    <string name="close">close</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="save_image_local">SAVE IMAGE LOCAL</string>
     <string name="habitation_name">Habitation Name</string>
+    <string name="gps_is_not_turned_on">GPS is not turned on...</string>
+    <string name="satellite">Satellite communication not available to get GPS Co-ordination Please Capture Photo in Open Area...</string>
+    <string name="permission_required">Permissions required!</string>
+    <string name="camera_need_permission">Camera needs few permissions to work properly. Grant them in settings.</string>
+    <string name="goto_settings">GOTO SETTINGS</string>
+    <string name="cancel">Cancel</string>
+    <string name="user_canceled_image_capture">User cancelled image capture</string>
+    <string name="sorry_failed_to_capture">Sorry! Failed to capture image</string>
+    <string name="user_canceled_video">User cancelled video recording</string>
+    <string name="sorry_failed_capture_video">Sorry! Failed to record video</string>
+    <string name="inserted_success">Inserted Success!</string>
+    <string name="updated_success">Updated Success!</string>
+    <string name="please_enter_description">Please Enter Description</string>
+    <string name="please_capture_image">Please Capture Image</string>
+    <string name="maximum_three_photos">Maximum three Photo allowed</string>
+    <string name="first_capture_image_add_another">First Capture Image then add another Image!</string>
+    <string name="at_least_capture_one_photo">At least Capture one Photo</string>
+    <string name="pending_screen">Pending Screen</string>
+
+    <string name="do_you_wnat_to_upload">Do You Want to Upload?</string>
+    <string name="do_you_wnat_to_delete">Do You Want to Delete?</string>
+    <string name="view_photos">View Photos</string>
+    <string name="upload_data">Upload Data</string>
+    <string name="maximum_photos_reached">Maximum Photos Reached</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="middle">Middle</string>
 </resources>

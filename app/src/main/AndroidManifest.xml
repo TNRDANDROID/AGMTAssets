@@ -42,7 +42,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.AgmtTypeList"></activity>
+        <activity android:name=".Activity.NewPendingScreen"></activity>
+        <activity android:name=".Activity.TakePhotoScreen" />
+        <activity android:name=".Activity.FormPrimaryDetails" />
+        <activity android:name=".Activity.ViewFormDetails" />
+        <activity android:name=".Activity.AgmtTypeList" />
         <activity android:name=".Activity.HabitationClass" />
 
         <uses-library
@@ -118,6 +122,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
+        <activity android:name=".Activity.FullImageActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -68,6 +68,125 @@ private String imageAvailable;
 private String form_id;
 private String form_number;
 private String form_name_ta;
+private String no_of_photos;
+private String type_of_photos;
+
+
+private String asseet_id;
+private String state_code;
+private String disp_id;
+private String column_type;
+private String disp_name;
+private String disp_value;
+private String text_value;
+private String sl_no;
+private String latitude;
+private String longitude;
+private String hab_asset_image;
+
+    public String getHab_asset_image() {
+        return hab_asset_image;
+    }
+
+    public void setHab_asset_image(String hab_asset_image) {
+        this.hab_asset_image = hab_asset_image;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getSl_no() {
+        return sl_no;
+    }
+
+    public void setSl_no(String sl_no) {
+        this.sl_no = sl_no;
+    }
+
+    public String getText_value() {
+        return text_value;
+    }
+
+    public void setText_value(String text_value) {
+        this.text_value = text_value;
+    }
+
+    public String getAsseet_id() {
+        return asseet_id;
+    }
+
+    public void setAsseet_id(String asseet_id) {
+        this.asseet_id = asseet_id;
+    }
+
+    public String getState_code() {
+        return state_code;
+    }
+
+    public void setState_code(String state_code) {
+        this.state_code = state_code;
+    }
+
+    public String getDisp_id() {
+        return disp_id;
+    }
+
+    public void setDisp_id(String disp_id) {
+        this.disp_id = disp_id;
+    }
+
+    public String getColumn_type() {
+        return column_type;
+    }
+
+    public void setColumn_type(String column_type) {
+        this.column_type = column_type;
+    }
+
+    public String getDisp_name() {
+        return disp_name;
+    }
+
+    public void setDisp_name(String disp_name) {
+        this.disp_name = disp_name;
+    }
+
+    public String getDisp_value() {
+        return disp_value;
+    }
+
+    public void setDisp_value(String disp_value) {
+        this.disp_value = disp_value;
+    }
+
+    public String getNo_of_photos() {
+        return no_of_photos;
+    }
+
+    public void setNo_of_photos(String no_of_photos) {
+        this.no_of_photos = no_of_photos;
+    }
+
+    public String getType_of_photos() {
+        return type_of_photos;
+    }
+
+    public void setType_of_photos(String type_of_photos) {
+        this.type_of_photos = type_of_photos;
+    }
 
     public String getForm_id() {
         return form_id;

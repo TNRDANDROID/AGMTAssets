@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.nic.AGMTAssets.Adapter.AgmtFormAdapter;
+import com.nic.AGMTAssets.Adapter.AgmtFormDetailsAdapter;
 import com.nic.AGMTAssets.DataBase.DBHelper;
 import com.nic.AGMTAssets.DataBase.dbData;
 import com.nic.AGMTAssets.Model.RoadListValue;
@@ -17,11 +18,9 @@ import com.nic.AGMTAssets.R;
 import com.nic.AGMTAssets.Session.PrefManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class AgmtTypeList extends AppCompatActivity {
-
-    TextView village_name,designation_name,hab_name_text;
+public class ViewFormDetails extends AppCompatActivity {
+    TextView village_name,designation_name,hab_name_text,form_name_text;
     RecyclerView habitation_recycler;
     public com.nic.AGMTAssets.DataBase.dbData dbData = new dbData(this);
     private PrefManager prefManager;
@@ -30,16 +29,20 @@ public class AgmtTypeList extends AppCompatActivity {
 
 
     ArrayList<RoadListValue> agmtFormList;
-    AgmtFormAdapter agmtFormAdapter;
+    AgmtFormDetailsAdapter agmtFormDetailsAdapter;
 
     String hab_code="";
     String hab_name="";
-
+    String form_name="";
+    String form_number="";
+    String form_id="";
+    String type_of_photos="";
+    String no_of_photos="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agmt_type_list);
+        setContentView(R.layout.activity_view_form_details);
 
         try {
             dbHelper = new DBHelper(this);
@@ -51,47 +54,57 @@ public class AgmtTypeList extends AppCompatActivity {
         prefManager = new PrefManager(this);
         village_name = findViewById(R.id.village_name);
         designation_name = findViewById(R.id.designation_name);
-        hab_name_text = findViewById(R.id.hab_name_text);
+        hab_name_text = findViewById(R.id.text_view_1);
+        form_name_text = findViewById(R.id.form_name);
 
 
 
         hab_code = String.valueOf(Integer.parseInt(getIntent().getStringExtra("hab_code")));
         hab_name = String.valueOf(getIntent().getStringExtra("hab_name"));
+        form_id = (getIntent().getStringExtra("form_id"));
+        form_number = (getIntent().getStringExtra("form_number"));
+        form_name = (getIntent().getStringExtra("form_name"));
+        no_of_photos = (getIntent().getStringExtra("no_of_photos"));
+        type_of_photos = (getIntent().getStringExtra("type_of_photos"));
 
         designation_name.setText("Village Name: "+prefManager.getPvName());
         village_name.setText("District Name: "+prefManager.getDistrictName());
-        hab_name_text.setText(hab_name);
+        hab_name_text.setText("Habitation: "+hab_name);
+        form_name_text.setText(form_name);
 
         habitation_recycler = findViewById(R.id.habitation_recycler);
         habitation_recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
 
         agmtFormList = new ArrayList<>();
-
         getAgmtForms();
-
     }
+
     public void getAgmtForms() {
         dbData.open();
         agmtFormList.clear();
 
-        agmtFormList.addAll(dbData.getAgmtForm());
+        //agmtFormList.addAll(dbData.getAGMTDisplayDataHabitationwise(hab_code,"no",""));
+        agmtFormList.addAll(dbData.getAGMTCommonDataHabitationwise(hab_code,form_id));
         //Collections.sort(agmtFormList, (lhs, rhs) -> lhs.getForm_id().compareTo(rhs.getForm_id()));
         if(agmtFormList.size()>0){
-            agmtFormAdapter = new AgmtFormAdapter(this, agmtFormList,dbData);
-            habitation_recycler.setAdapter(agmtFormAdapter);
+            agmtFormDetailsAdapter = new AgmtFormDetailsAdapter(this, agmtFormList,dbData);
+            habitation_recycler.setAdapter(agmtFormDetailsAdapter);
         }
 
     }
 
     public void gotoViewFormDetails(int position){
-        Intent intent = new Intent(AgmtTypeList.this,ViewFormDetails.class);
+        Intent intent = new Intent(ViewFormDetails.this,FormPrimaryDetails.class);
         intent.putExtra("hab_code",hab_code);
         intent.putExtra("hab_name",hab_name);
-        intent.putExtra("form_name",agmtFormList.get(position).getForm_name_ta());
-        intent.putExtra("form_id",agmtFormList.get(position).getForm_id());
-        intent.putExtra("form_number",agmtFormList.get(position).getForm_number());
-        intent.putExtra("no_of_photos",agmtFormList.get(position).getNo_of_photos());
-        intent.putExtra("type_of_photos",agmtFormList.get(position).getType_of_photos());
+        intent.putExtra("form_name",form_name);
+        intent.putExtra("form_id",form_id);
+        intent.putExtra("form_number",form_number);
+        intent.putExtra("no_of_photos",no_of_photos);
+        intent.putExtra("type_of_photos",type_of_photos);
+        intent.putExtra("asset_id",agmtFormList.get(position).getAsseet_id());
         startActivity(intent);
     }
+
+
 }

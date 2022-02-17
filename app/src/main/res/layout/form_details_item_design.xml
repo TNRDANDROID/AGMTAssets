@@ -2,7 +2,7 @@
 <RelativeLayout
     android:elevation="@dimen/_7sdp"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_margin="@dimen/_5sdp"
     android:layout_height="wrap_content">
 
@@ -10,10 +10,20 @@
         android:id="@+id/hab_rl"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/_100sdp"
         android:background="@drawable/rect_full_curve_bg">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_icon"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:src="@drawable/red_eye"
+            android:tint="@color/black"/>
 
         <TextView
             android:layout_width="wrap_content"
