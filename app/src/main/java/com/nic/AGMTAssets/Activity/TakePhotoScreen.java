@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +85,8 @@ public class TakePhotoScreen extends AppCompatActivity {
     TextView latitude_text, longtitude_text,text_start_end_middle;
     EditText myEditTextView;
     ScrollView scrollView;
+    RelativeLayout mini_number_count_text_layout,maxi_number_count_text_layout;
+    TextView mini_number_count_text,maxi_number_count_text;
     private List<View> viewArrayList = new ArrayList<>();
 
     String hab_code="";
@@ -93,6 +96,8 @@ public class TakePhotoScreen extends AppCompatActivity {
     String form_id="";
     String type_of_photos="";
     String no_of_photos="";
+    String min_no_of_photos="";
+    String max_no_of_photos="";
     String asset_id="";
     int last_position=0;
 
@@ -105,6 +110,10 @@ public class TakePhotoScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_photo_screen);
         scrollView =findViewById(R.id.scroll_view);
+        mini_number_count_text_layout =findViewById(R.id.mini_number_count_text_layout);
+        maxi_number_count_text_layout =findViewById(R.id.maxi_number_count_text_layout);
+        mini_number_count_text =findViewById(R.id.mini_number_count_text);
+        maxi_number_count_text =findViewById(R.id.maxi_number_count_text);
         try {
             dbHelper = new DBHelper(this);
             db = dbHelper.getWritableDatabase();
@@ -115,7 +124,27 @@ public class TakePhotoScreen extends AppCompatActivity {
         prefManager = new PrefManager(this);
 
         getIntentData();
-        imageWithDescription("",scrollView);
+        /*if(!type_of_photos.equals("2")) {
+            imageWithDescription("", scrollView);
+        }
+        else {
+
+        }
+*/
+        maxi_number_count_text_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                no_of_photos = max_no_of_photos;
+                imageWithDescription("", scrollView);
+            }
+        });
+        mini_number_count_text_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                no_of_photos = min_no_of_photos;
+                imageWithDescription("", scrollView);
+            }
+        });
     }
 
     public void getIntentData(){
@@ -124,9 +153,13 @@ public class TakePhotoScreen extends AppCompatActivity {
         form_id = (getIntent().getStringExtra("form_id"));
         form_number = (getIntent().getStringExtra("form_number"));
         form_name = (getIntent().getStringExtra("form_name"));
-        no_of_photos = (getIntent().getStringExtra("no_of_photos"));
+        min_no_of_photos = (getIntent().getStringExtra("min_no_of_photos"));
+        max_no_of_photos = (getIntent().getStringExtra("max_no_of_photos"));
         type_of_photos = (getIntent().getStringExtra("type_of_photos"));
         asset_id = (getIntent().getStringExtra("asset_id"));
+
+        mini_number_count_text.setText(min_no_of_photos);
+        maxi_number_count_text.setText(max_no_of_photos);
     }
 
     public void imageWithDescription(final String type, final ScrollView scrollView) {
@@ -154,7 +187,6 @@ public class TakePhotoScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                onBackPressed();
             }
         });
         Button done = (Button) dialog.findViewById(R.id.btn_save_inspection);
@@ -231,8 +263,8 @@ public class TakePhotoScreen extends AppCompatActivity {
 
                                             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
                                             dialog.dismiss();
-                                            //Toast.makeText(ViewTakeEditComponentsPhots.this, "Success", Toast.LENGTH_SHORT).show();
-                                            Toasty.success(TakePhotoScreen.this, getResources().getString(R.string.inserted_success), Toasty.LENGTH_SHORT);
+                                            Toast.makeText(TakePhotoScreen.this, getResources().getString(R.string.inserted_success), Toast.LENGTH_SHORT).show();
+                                            //Toasty.success(TakePhotoScreen.this, getResources().getString(R.string.inserted_success), Toasty.LENGTH_SHORT);
                                             onBackPressed();
                                         }
 
@@ -350,7 +382,7 @@ public class TakePhotoScreen extends AppCompatActivity {
                     if(viewArrayList.size()==0){
                         showAlert("1");
                     }
-                    else if(viewArrayList.size()==Integer.parseInt(no_of_photos)-1){
+                    else if(viewArrayList.size()==Integer.parseInt(no_of_photos)){
                         showAlert("2");
                     }
                     else {

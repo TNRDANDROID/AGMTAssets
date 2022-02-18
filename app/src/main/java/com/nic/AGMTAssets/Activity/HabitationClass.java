@@ -315,7 +315,9 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
                             habListValue.setForm_id((jsonArray.getJSONObject(i).getString("form_id")));
                             habListValue.setForm_number((jsonArray.getJSONObject(i).getString("form_number")));
                             habListValue.setForm_name_ta((jsonArray.getJSONObject(i).getString("form_name_ta")));
-                            habListValue.setNo_of_photos((jsonArray.getJSONObject(i).getString("no_of_photos")));
+                            //habListValue.setNo_of_photos((jsonArray.getJSONObject(i).getString("no_of_photos")));
+                            habListValue.setMin_no_of_photos((jsonArray.getJSONObject(i).getString("min_no_of_photos")));
+                            habListValue.setMax_no_of_photos((jsonArray.getJSONObject(i).getString("max_no_of_photos")));
                             habListValue.setType_of_photos((jsonArray.getJSONObject(i).getString("type_of_photos")));
 
                             dbData.insertAGMTForm(habListValue);

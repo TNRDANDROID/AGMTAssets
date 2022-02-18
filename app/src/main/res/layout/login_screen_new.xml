@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp">
+        android:layout_height="@dimen/_150sdp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,8 +61,9 @@
 
         <RelativeLayout
             android:id="@+id/rl6"
+            android:layout_above="@id/tv_version_number"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +121,7 @@
                 <RelativeLayout
                     android:id="@+id/rl2"
                     android:layout_below="@+id/view_1"
-                    android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_45sdp">
 
@@ -170,7 +171,7 @@
                 android:layout_below="@+id/rl3"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:id="@+id/btn_sign_in"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -189,14 +190,12 @@
 
         </RelativeLayout>
         <TextView
-            android:layout_below="@+id/rl6"
             android:id="@+id/tv_version_number"
+            android:layout_above="@id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="@dimen/_34sdp"
-            android:padding="@dimen/_13sdp"
+            android:paddingTop="@dimen/_12sdp"
             android:fontFamily="@string/lexenddeca_regular"
             android:textAlignment="center"
             android:textColor="@color/black"

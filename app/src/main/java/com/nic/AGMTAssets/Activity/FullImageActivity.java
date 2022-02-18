@@ -93,7 +93,7 @@ public class FullImageActivity extends AppCompatActivity implements Api.ServerRe
         imageList.addAll(dbData.getAgmtImages(form_id,asset_id,hab_code));
         //Collections.sort(agmtFormList, (lhs, rhs) -> lhs.getForm_id().compareTo(rhs.getForm_id()));
         if(imageList.size()>0){
-            image_recycler.smoothScrollToPosition(0);
+            //image_recycler.smoothScrollToPosition(0);
             viewImagesAdapter = new ViewImagesAdapter(this, imageList,dbData,"");
             image_recycler.setAdapter(viewImagesAdapter);
         }
@@ -276,7 +276,7 @@ public class FullImageActivity extends AppCompatActivity implements Api.ServerRe
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if(onlineImageList.size()>0){
-                image_recycler.smoothScrollToPosition(0);
+                //image_recycler.smoothScrollToPosition(0);
                 viewImagesAdapter = new ViewImagesAdapter(FullImageActivity.this, onlineImageList,dbData,"Online");
                 image_recycler.setAdapter(viewImagesAdapter);
             }

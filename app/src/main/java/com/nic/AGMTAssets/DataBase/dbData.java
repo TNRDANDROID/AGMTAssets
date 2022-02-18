@@ -65,7 +65,8 @@ public class dbData {
         values.put("form_name_ta", kvvtSurvey.getForm_name_ta());
         values.put("form_number", kvvtSurvey.getForm_number());
         values.put("form_id", kvvtSurvey.getForm_id());
-        values.put("no_of_photos", kvvtSurvey.getNo_of_photos());
+        values.put("min_no_of_photos", kvvtSurvey.getMin_no_of_photos());
+        values.put("max_no_of_photos", kvvtSurvey.getMax_no_of_photos());
         values.put("type_of_photos", kvvtSurvey.getType_of_photos());
 
         long id = db.insert(DBHelper.AGMT_FORM_TABLE,null,values);
@@ -176,7 +177,7 @@ public class dbData {
 
         try {
 
-            cursor = db.rawQuery("select * from "+DBHelper.AGMT_FORM_DISPLAY_COMMON_DATA_TABLE+" where hab_code = "+hab_code+" and form_id = "+form_id,null);
+            cursor = db.rawQuery("select * from "+DBHelper.AGMT_FORM_DISPLAY_COMMON_DATA_TABLE+" where hab_code = "+hab_code+" and form_id = "+form_id+" order by asset_id asc ",null);
             // cursor = db.query(CardsDBHelper.TABLE_CARDS,
             //       COLUMNS, null, null, null, null, null);
 
@@ -302,8 +303,10 @@ public class dbData {
                             .getColumnIndexOrThrow("form_number")));
                     card.setForm_name_ta(cursor.getString(cursor
                             .getColumnIndexOrThrow("form_name_ta")));
-                    card.setNo_of_photos(cursor.getString(cursor
-                            .getColumnIndexOrThrow("no_of_photos")));
+                    card.setMin_no_of_photos(cursor.getString(cursor
+                            .getColumnIndexOrThrow("min_no_of_photos")));
+                    card.setMax_no_of_photos(cursor.getString(cursor
+                            .getColumnIndexOrThrow("max_no_of_photos")));
                     card.setType_of_photos(cursor.getString(cursor
                             .getColumnIndexOrThrow("type_of_photos")));
 

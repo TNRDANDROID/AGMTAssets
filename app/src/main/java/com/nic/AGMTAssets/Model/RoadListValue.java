@@ -70,9 +70,26 @@ private String form_number;
 private String form_name_ta;
 private String no_of_photos;
 private String type_of_photos;
+private String min_no_of_photos;
+private String max_no_of_photos;
 
+    public String getMin_no_of_photos() {
+        return min_no_of_photos;
+    }
 
-private String asseet_id;
+    public void setMin_no_of_photos(String min_no_of_photos) {
+        this.min_no_of_photos = min_no_of_photos;
+    }
+
+    public String getMax_no_of_photos() {
+        return max_no_of_photos;
+    }
+
+    public void setMax_no_of_photos(String max_no_of_photos) {
+        this.max_no_of_photos = max_no_of_photos;
+    }
+
+    private String asseet_id;
 private String state_code;
 private String disp_id;
 private String column_type;

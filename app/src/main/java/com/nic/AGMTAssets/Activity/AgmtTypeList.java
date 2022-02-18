@@ -90,7 +90,8 @@ public class AgmtTypeList extends AppCompatActivity {
         intent.putExtra("form_name",agmtFormList.get(position).getForm_name_ta());
         intent.putExtra("form_id",agmtFormList.get(position).getForm_id());
         intent.putExtra("form_number",agmtFormList.get(position).getForm_number());
-        intent.putExtra("no_of_photos",agmtFormList.get(position).getNo_of_photos());
+        intent.putExtra("min_no_of_photos",agmtFormList.get(position).getMin_no_of_photos());
+        intent.putExtra("max_no_of_photos",agmtFormList.get(position).getMax_no_of_photos());
         intent.putExtra("type_of_photos",agmtFormList.get(position).getType_of_photos());
         startActivity(intent);
     }

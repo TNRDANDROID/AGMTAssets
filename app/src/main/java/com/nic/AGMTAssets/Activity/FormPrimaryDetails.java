@@ -10,12 +10,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nic.AGMTAssets.Adapter.AgmtFormDetailsAdapter;
 import com.nic.AGMTAssets.Adapter.AgmtFormFullDetails;
 import com.nic.AGMTAssets.DataBase.DBHelper;
 import com.nic.AGMTAssets.DataBase.dbData;
+import com.nic.AGMTAssets.Fragment.GoogleMapFragment;
 import com.nic.AGMTAssets.Model.RoadListValue;
 import com.nic.AGMTAssets.R;
 import com.nic.AGMTAssets.Session.PrefManager;
@@ -30,6 +31,7 @@ public class FormPrimaryDetails extends AppCompatActivity {
     private SQLiteDatabase db;
     public static DBHelper dbHelper;
     Button tak_photo_btn,view_photo;
+    ImageView map_icon;
 
 
     ArrayList<RoadListValue> agmtFormList;
@@ -41,7 +43,8 @@ public class FormPrimaryDetails extends AppCompatActivity {
     String form_number="";
     String form_id="";
     String type_of_photos="";
-    String no_of_photos="";
+    String min_no_of_photos ="";
+    String max_no_of_photos ="";
     String asset_id="";
 
     @Override
@@ -62,6 +65,8 @@ public class FormPrimaryDetails extends AppCompatActivity {
         form_name_text = findViewById(R.id.form_name);
         tak_photo_btn = findViewById(R.id.take_photo);
         view_photo = findViewById(R.id.view_photo);
+        map_icon = findViewById(R.id.map_icon);
+        map_icon.setVisibility(View.GONE);
 
 
 
@@ -70,7 +75,8 @@ public class FormPrimaryDetails extends AppCompatActivity {
         form_id = (getIntent().getStringExtra("form_id"));
         form_number = (getIntent().getStringExtra("form_number"));
         form_name = (getIntent().getStringExtra("form_name"));
-        no_of_photos = (getIntent().getStringExtra("no_of_photos"));
+        min_no_of_photos = (getIntent().getStringExtra("min_no_of_photos"));
+        max_no_of_photos = (getIntent().getStringExtra("max_no_of_photos"));
         type_of_photos = (getIntent().getStringExtra("type_of_photos"));
         asset_id = (getIntent().getStringExtra("asset_id"));
 
@@ -98,6 +104,12 @@ public class FormPrimaryDetails extends AppCompatActivity {
                 gotoViewPhoto();
             }
         });
+        map_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoMapPhoto();
+            }
+        });
 
         getAgmtForms();
     }
@@ -122,13 +134,22 @@ public class FormPrimaryDetails extends AppCompatActivity {
         intent.putExtra("form_name",form_name);
         intent.putExtra("form_id",form_id);
         intent.putExtra("form_number",form_number);
-        intent.putExtra("no_of_photos",no_of_photos);
+        intent.putExtra("min_no_of_photos", min_no_of_photos);
+        intent.putExtra("max_no_of_photos", max_no_of_photos);
         intent.putExtra("type_of_photos",type_of_photos);
         intent.putExtra("asset_id",asset_id);
         startActivity(intent);
     }
     public void gotoViewPhoto(){
         Intent intent = new Intent(FormPrimaryDetails.this,FullImageActivity.class);
+        intent.putExtra("hab_code",hab_code);
+        intent.putExtra("form_id",form_id);
+        intent.putExtra("asset_id",asset_id);
+        intent.putExtra("type","Online");
+        startActivity(intent);
+    }
+    public void gotoMapPhoto(){
+        Intent intent = new Intent(FormPrimaryDetails.this, GoogleMapFragment.class);
         intent.putExtra("hab_code",hab_code);
         intent.putExtra("form_id",form_id);
         intent.putExtra("asset_id",asset_id);

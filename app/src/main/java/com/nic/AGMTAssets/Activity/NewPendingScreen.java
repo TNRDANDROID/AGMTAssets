@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.android.volley.VolleyError;
 import com.nic.AGMTAssets.Adapter.NewPendingScreenAdapter;
@@ -34,6 +36,7 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
     private PrefManager prefManager;
     private SQLiteDatabase db;
     public static DBHelper dbHelper;
+    ImageView no_data_icon;
 
     ArrayList<RoadListValue> listValues;
     NewPendingScreenAdapter newPendingScreenAdapter;
@@ -58,8 +61,10 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
         prefManager = new PrefManager(this);
 
         pending_recycler = findViewById(R.id.pending_recycler);
+        no_data_icon = findViewById(R.id.no_data_icon);
         pending_recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
-
+        no_data_icon.setVisibility(View.GONE);
+        pending_recycler.setVisibility(View.GONE);
         getPendigList();
     }
 
@@ -72,8 +77,15 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
         listValues.addAll(dbData.getUniqueAgmtImages());
         //Collections.sort(agmtFormList, (lhs, rhs) -> lhs.getForm_id().compareTo(rhs.getForm_id()));
         if(listValues.size()>0){
+            pending_recycler.setVisibility(View.VISIBLE);
+            no_data_icon.setVisibility(View.GONE);
             newPendingScreenAdapter = new NewPendingScreenAdapter(this, listValues,dbData);
             pending_recycler.setAdapter(newPendingScreenAdapter);
+            newPendingScreenAdapter.notifyDataSetChanged();
+        }
+        else {
+            pending_recycler.setVisibility(View.GONE);
+            no_data_icon.setVisibility(View.VISIBLE);
         }
 
     }
@@ -118,7 +130,7 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
                     Utils.showAlert(this,jsonObject.getString("MESSAGE"));
                         int sdsm = db.delete(DBHelper.AGMT_SAVE_IMAGE_TABLE, "form_id = ? and  asset_id =? and hab_code = ? ", new String[]{form_id,asset_id, hab_code});
                         getPendigList();
-                        newPendingScreenAdapter.notifyDataSetChanged();
+
 
 
                 }

@@ -40,6 +40,13 @@
                 android:id="@+id/pending_recycler"
                 android:layout_margin="@dimen/_7sdp"/>
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/no_data_icon"
+                android:scaleType="fitEnd"
+                android:layout_centerInParent="true"
+                android:src="@drawable/new_no_result_image"/>
         </RelativeLayout>
     </RelativeLayout>
 

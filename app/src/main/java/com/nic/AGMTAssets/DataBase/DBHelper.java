@@ -78,7 +78,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + AGMT_FORM_TABLE + " ("
                 + "form_id TEXT," +
                 "form_number TEXT," +
-                "no_of_photos TEXT," +
+                "min_no_of_photos TEXT," +
+                "max_no_of_photos TEXT," +
                 "type_of_photos TEXT," +
                 "form_name_ta TEXT)");
 

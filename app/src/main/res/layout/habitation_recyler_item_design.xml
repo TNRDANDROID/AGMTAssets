@@ -5,14 +5,23 @@
     android:layout_width="wrap_content"
     android:layout_margin="@dimen/_5sdp"
     android:layout_height="wrap_content">
-
+    <RelativeLayout
+        android:id="@+id/hab_rl2"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/_100sdp"
+        android:background="@drawable/recycler_background_bg">
     <RelativeLayout
         android:id="@+id/hab_rl"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/_100sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:background="@drawable/rect_full_curve_bg">
 
         <TextView
@@ -24,6 +33,7 @@
             android:id="@+id/hab_name"
             android:textColor="@color/black"
             android:padding="@dimen/_7sdp"/>
+    </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>
