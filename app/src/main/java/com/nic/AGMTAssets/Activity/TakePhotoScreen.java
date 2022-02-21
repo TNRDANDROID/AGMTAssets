@@ -380,77 +380,69 @@ public class TakePhotoScreen extends AppCompatActivity {
         image_view_preview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    int childCount = viewArrayList.size()-2;
-                    if(viewArrayList.size()==Integer.parseInt(no_of_photos)){
-                        if(type_of_photos.equals("2")){
-                            if(viewArrayList.size()==1){
-                                showAlert("1");
-                            }
-                            else if(viewArrayList.size()==Integer.parseInt(no_of_photos)){
-                                showAlert("2");
-                            }
-                            else {
+                    if(type_of_photos.equalsIgnoreCase("2")) {
+                        int childCount = viewArrayList.size() - 2;
+                        if (viewArrayList.size() == Integer.parseInt(no_of_photos)) {
+                            if (type_of_photos.equals("2")) {
+                                if (viewArrayList.size() == 1) {
+                                    showAlert("1");
+                                } else if (viewArrayList.size() == Integer.parseInt(no_of_photos)) {
+                                    showAlert("2");
+                                } else {
+                                    getLatLong();
+                                }
+                            } else {
                                 getLatLong();
                             }
-                        }
-                        else {
-                            getLatLong();
-                        }
-                    }
-                    else{
-                        if (childCount >=0) {
+                        } else {
+                            if (childCount >= 0) {
 
-                            View vv = emailOrMobileLayout.getChildAt(childCount);
-                            //ImageView imageView = vv.findViewById(R.id.image_view);
-                            EditText myEditTextView = vv.findViewById(R.id.description);
-                            TextView latitude_text = vv.findViewById(R.id.latitude);
-                             TextView longtitude_text = vv.findViewById(R.id.longtitude);
+                                View vv = emailOrMobileLayout.getChildAt(childCount);
+                                //ImageView imageView = vv.findViewById(R.id.image_view);
+                                EditText myEditTextView = vv.findViewById(R.id.description);
+                                TextView latitude_text = vv.findViewById(R.id.latitude);
+                                TextView longtitude_text = vv.findViewById(R.id.longtitude);
 
-                            if (MyLocationListener.latitude > 0) {
-                                offlatTextValue = MyLocationListener.latitude;
-                                offlongTextValue = MyLocationListener.longitude;
-                            }
-                            if(Double.parseDouble(latitude_text.getText().toString())==offlatTextValue
-                                    &&(Double.parseDouble(longtitude_text.getText().toString())==offlongTextValue)){
-                                //Utils.showAlert(TakePhotoScreen.this, "Previous Lat Long is Same as Current Lat Long");
-                                Toast.makeText(TakePhotoScreen.this, "Previous Lat Long is Same as Current Lat Long", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                if(type_of_photos.equals("2")){
-                                    if(viewArrayList.size()==1){
-                                        showAlert("1");
-                                    }
-                                    else if(viewArrayList.size()==Integer.parseInt(no_of_photos)){
-                                        showAlert("2");
-                                    }
-                                    else {
+                                if (MyLocationListener.latitude > 0) {
+                                    offlatTextValue = MyLocationListener.latitude;
+                                    offlongTextValue = MyLocationListener.longitude;
+                                }
+                                if (Double.parseDouble(latitude_text.getText().toString()) == offlatTextValue
+                                        && (Double.parseDouble(longtitude_text.getText().toString()) == offlongTextValue)) {
+                                    //Utils.showAlert(TakePhotoScreen.this, "Previous Lat Long is Same as Current Lat Long");
+                                    Toast.makeText(TakePhotoScreen.this, "Previous Lat Long is Same as Current Lat Long", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    if (type_of_photos.equals("2")) {
+                                        if (viewArrayList.size() == 1) {
+                                            showAlert("1");
+                                        } else if (viewArrayList.size() == Integer.parseInt(no_of_photos)) {
+                                            showAlert("2");
+                                        } else {
+                                            getLatLong();
+                                        }
+                                    } else {
                                         getLatLong();
                                     }
                                 }
-                                else {
+
+
+                            } else {
+                                if (type_of_photos.equals("2")) {
+                                    if (viewArrayList.size() == 1) {
+                                        showAlert("1");
+                                    } else if (viewArrayList.size() == Integer.parseInt(no_of_photos)) {
+                                        showAlert("2");
+                                    } else {
+                                        getLatLong();
+                                    }
+                                } else {
                                     getLatLong();
                                 }
                             }
-
-
                         }
-                        else {
-                            if(type_of_photos.equals("2")){
-                                if(viewArrayList.size()==1){
-                                    showAlert("1");
-                                }
-                                else if(viewArrayList.size()==Integer.parseInt(no_of_photos)){
-                                    showAlert("2");
-                                }
-                                else {
-                                    getLatLong();
-                                }
-                            }
-                            else {
-                                getLatLong();
-                            }
-                        }
+                    }
+                    else {
+                            getLatLong();
                     }
 
             /*    if(type_of_photos.equals("2")){
