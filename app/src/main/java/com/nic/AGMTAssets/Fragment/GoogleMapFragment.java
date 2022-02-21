@@ -3,6 +3,7 @@ package com.nic.AGMTAssets.Fragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,6 +19,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -40,11 +49,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.nic.AGMTAssets.Activity.FullImageActivity;
+import com.nic.AGMTAssets.Adapter.CommonAdapter;
+import com.nic.AGMTAssets.Adapter.HabitationAdapter;
+import com.nic.AGMTAssets.Adapter.PopupAdapter;
 import com.nic.AGMTAssets.Adapter.ViewImagesAdapter;
 import com.nic.AGMTAssets.Api.Api;
 import com.nic.AGMTAssets.Api.ApiService;
 import com.nic.AGMTAssets.Api.ServerResponse;
 import com.nic.AGMTAssets.Constant.AppConstant;
+import com.nic.AGMTAssets.DataBase.DBHelper;
+import com.nic.AGMTAssets.DataBase.dbData;
 import com.nic.AGMTAssets.Model.RoadListValue;
 import com.nic.AGMTAssets.R;
 import com.nic.AGMTAssets.Session.PrefManager;
@@ -57,11 +71,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 public class GoogleMapFragment extends FragmentActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.ConnectionCallbacks, GoogleMap.OnInfoWindowClickListener,
         GoogleApiClient.OnConnectionFailedListener,Api.ServerResponseListener,
         LocationListener {
         public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -83,6 +98,21 @@ public class GoogleMapFragment extends FragmentActivity implements OnMapReadyCal
         ArrayList<RoadListValue> onlineImageList;
         private PrefManager prefManager;
 
+        ImageView filter_icon;
+        RelativeLayout filter_layout;
+        Spinner habitation_spinner;
+        Spinner form_spinner;
+        TextView go_text;
+
+        String visible="";
+        String get_partial_="";
+        String filter_form_id="";
+        String filter_hab_code="";
+        ArrayList<RoadListValue> habList;
+        ArrayList<RoadListValue> formList;
+        public com.nic.AGMTAssets.DataBase.dbData dbData = new dbData(this);
+
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
@@ -90,13 +120,19 @@ public class GoogleMapFragment extends FragmentActivity implements OnMapReadyCal
 
                 prefManager = new PrefManager(this);
 
+                filter_icon = findViewById(R.id.filter_icon);
+                filter_layout = findViewById(R.id.filter_layout);
+                habitation_spinner = findViewById(R.id.habitation_spinner);
+                form_spinner = findViewById(R.id.form_spinner);
+                go_text = findViewById(R.id.go);
+
                 hab_code = String.valueOf(Integer.parseInt(getIntent().getStringExtra("hab_code")));
                 type = getIntent().getStringExtra("type");
                 form_id = getIntent().getStringExtra("form_id");
                 asset_id = getIntent().getStringExtra("asset_id");
-
                 if(type.equals("Online")){
                         getOnlineImageList();
+                        get_partial_="yes";
                 }
 
 
@@ -108,12 +144,113 @@ public class GoogleMapFragment extends FragmentActivity implements OnMapReadyCal
                 .findFragmentById(R.id.map);
 
                 mapFragment.getMapAsync(this);
+
+                filter_layout.setVisibility(View.GONE);
+                visible="no";
+
+                habitationFilterSpinner(prefManager.getDistrictCode(),prefManager.getBlockCode(),prefManager.getPvCode());
+                formFilterSpinner();
+
+                filter_icon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                layout_visible_gone(visible);
+                        }
+                });
+                go_text.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                checkCondition();
+                        }
+                });
+
+                habitation_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                if(position>0){
+                                        filter_hab_code = String.valueOf(habList.get(position).getPmgsyHabcode());
+                                }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                });
+                form_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                if(position>0){
+                                        if(position>0){
+                                                filter_form_id = (formList.get(position).getForm_id());
+                                        }
+                                }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                });
+        }
+
+        public void layout_visible_gone(String type){
+              if(type.equals("no")){
+                    visible = "yes";
+                      SlideToAbove();
+                    filter_layout.setVisibility(View.VISIBLE);
+              }
+              else {
+                      visible = "no";
+                      SlideToDown();
+                      filter_layout.setVisibility(View.GONE);
+              }
+        }
+        public void checkCondition(){
+             if(!filter_hab_code.equals("0")){
+                     if(!filter_form_id.equals("0")){
+                                getOnlineImageList();
+                                get_partial_="no";
+                             SlideToDown();
+                                filter_layout.setVisibility(View.GONE);
+                                visible = "no";
+                     }
+                     else {
+
+                     }
+             }
+             else {
+
+             }
+        }
+        public void habitationFilterSpinner(String dcode,String bcode, String pvcode) {
+                dbData.open();
+                habList = new ArrayList<>();
+                habList.clear();
+                habList.addAll(dbData.getVillageAll_Habitation(dcode,bcode,pvcode));
+
+                if(habList.size()>0){
+                        habitation_spinner.setAdapter(new CommonAdapter(this, habList, "habList"));
+                }
+
+        }
+        public void formFilterSpinner() {
+                dbData.open();
+                formList = new ArrayList<>();
+                formList.clear();
+
+                formList.addAll(dbData.getAgmtForm());
+
+                if(formList.size()>0){
+                        form_spinner.setAdapter(new CommonAdapter(this, formList, "formList"));
+                }
+
         }
 
         @Override
         public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
                 mMap.getUiSettings().setZoomControlsEnabled(true);
                 mMap.getUiSettings().setZoomGesturesEnabled(true);
                 mMap.getUiSettings().setCompassEnabled(true);
@@ -129,7 +266,7 @@ public class GoogleMapFragment extends FragmentActivity implements OnMapReadyCal
                 }
                 } else {
                 buildGoogleApiClient();
-                mMap.setMyLocationEnabled(true);
+                mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 }
         }
@@ -270,10 +407,18 @@ public class GoogleMapFragment extends FragmentActivity implements OnMapReadyCal
         }
         public JSONObject normalJson() throws JSONException {
                 JSONObject dataSet = new JSONObject();
-                dataSet.put(AppConstant.KEY_SERVICE_ID, "agmt_habasset_photos_view");
-                dataSet.put("hab_code", hab_code);
-                dataSet.put("form_id", form_id);
-                dataSet.put("asset_id", asset_id);
+                if(get_partial_.equals("yes")) {
+                        dataSet.put(AppConstant.KEY_SERVICE_ID, "agmt_habasset_photos_view");
+                        dataSet.put("hab_code", hab_code);
+                        dataSet.put("form_id", form_id);
+                        dataSet.put("asset_id", asset_id);
+                }
+                else {
+                        dataSet.put(AppConstant.KEY_SERVICE_ID, "agmt_habasset_photos_view");
+                        dataSet.put("hab_code", hab_code);
+                        dataSet.put("form_id", form_id);
+                        dataSet.put("asset_id", asset_id);
+                }
                 Log.d("Image_LIST", "" + dataSet);
                 return dataSet;
         }
@@ -411,6 +556,8 @@ public class GoogleMapFragment extends FragmentActivity implements OnMapReadyCal
                         bitmapMarker = BitmapDescriptorFactory.fromBitmap(smallMarker);
                         createMarker(Double.parseDouble(onlineImageList.get(i).getLatitude()), Double.parseDouble(onlineImageList.get(i).getLongitude()),"","",  bitmapMarker);
                 }
+                mMap.setInfoWindowAdapter(new PopupAdapter(getLayoutInflater(),onlineImageList,this));
+                mMap.setOnInfoWindowClickListener(this);
         }
 
         protected Marker createMarker(double latitude, double longitude, String title, String snippet, BitmapDescriptor bitmapMarker) {
@@ -420,8 +567,90 @@ public class GoogleMapFragment extends FragmentActivity implements OnMapReadyCal
                         .position(location)
                         .anchor(0.5f, 0.5f)
                         .title(title)
-                        .snippet(snippet)
-                        .icon(bitmapMarker));
+                        .snippet(snippet));
+
+
+        }
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+                Toast.makeText(this, marker.getTitle(), Toast.LENGTH_LONG).show();
+        }
+
+        public void SlideToAbove() {
+                Animation slide = null;
+                slide = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                        Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                        0.0f, Animation.RELATIVE_TO_SELF, -5.0f);
+
+                slide.setDuration(400);
+                slide.setFillAfter(true);
+                slide.setFillEnabled(true);
+                filter_layout.startAnimation(slide);
+
+                slide.setAnimationListener(new Animation.AnimationListener() {
+
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+
+                                filter_layout.clearAnimation();
+
+                                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                                        filter_layout.getWidth(), filter_layout.getHeight());
+                                // lp.setMargins(0, 0, 0, 0);
+                                lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                                filter_layout.setLayoutParams(lp);
+
+                        }
+
+                });
+
+        }
+
+        public void SlideToDown() {
+                Animation slide = null;
+                slide = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                        Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                        0.0f, Animation.RELATIVE_TO_SELF, 5.2f);
+
+                slide.setDuration(400);
+                slide.setFillAfter(true);
+                slide.setFillEnabled(true);
+                filter_layout.startAnimation(slide);
+
+                slide.setAnimationListener(new Animation.AnimationListener() {
+
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+
+                                filter_layout.clearAnimation();
+
+                                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                                        filter_layout.getWidth(), filter_layout.getHeight());
+                                lp.setMargins(0, filter_layout.getWidth(), 0, 0);
+                                lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                                filter_layout.setLayoutParams(lp);
+
+                        }
+
+                });
 
         }
 

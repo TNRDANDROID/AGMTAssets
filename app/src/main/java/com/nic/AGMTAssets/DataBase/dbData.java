@@ -84,6 +84,7 @@ public class dbData {
         values.put("pvcode", kvvtSurvey.getPmgsyPvcode());
         values.put("hab_code", kvvtSurvey.getPmgsyHabcode());
         values.put("disp_value", kvvtSurvey.getText_value());
+        values.put("flag", kvvtSurvey.getFlag());
 
 
         long id = db.insert(DBHelper.AGMT_FORM_DISPLAY_COMMON_DATA_TABLE,null,values);
@@ -370,7 +371,7 @@ public class dbData {
 
         ArrayList<RoadListValue> cards = new ArrayList<>();
         Cursor cursor = null;
-        String query = "select distinct  a.form_id,a.asset_id,a.hab_code,b.disp_value from agmt_save_image_table as a left join agmt_form_display_common_data_table as b on a.form_id=b.form_id and a.asset_id=b.asset_id and a.hab_code=b.hab_code";
+        String query = "select distinct  a.form_id,a.asset_id,a.hab_code,b.disp_value,b.flag from agmt_save_image_table as a left join agmt_form_display_common_data_table as b on a.form_id=b.form_id and a.asset_id=b.asset_id and a.hab_code=b.hab_code";
         try {
             //cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE,null);
             cursor = db.rawQuery(query,null);
@@ -389,6 +390,8 @@ public class dbData {
                             .getColumnIndexOrThrow("hab_code"))));
                     card.setDisp_value(cursor.getString(cursor
                             .getColumnIndexOrThrow("disp_value")));
+                    card.setFlag(cursor.getString(cursor
+                            .getColumnIndexOrThrow("flag")));
 
                     cards.add(card);
                 }
@@ -1736,6 +1739,12 @@ public class dbData {
         db.execSQL("delete from "+ DBHelper.ROAD_LIST_TABLE);
         db.execSQL("delete from "+ DBHelper.PMGSY_VILLAGE_LIST_TABLE);
         db.execSQL("delete from "+ DBHelper.PMGSY_HABITATION_LIST_TABLE);
+        db.execSQL("delete from "+ DBHelper.HABITATION_TABLE);
+        db.execSQL("delete from "+ DBHelper.AGMT_FORM_TABLE);
+        db.execSQL("delete from "+ DBHelper.AGMT_FORM_DISPLAY_DATA_TABLE);
+        db.execSQL("delete from "+ DBHelper.AGMT_FORM_DISPLAY_COMMON_DATA_TABLE);
+        db.execSQL("delete from "+ DBHelper.AGMT_SAVE_IMAGE_TABLE);
+
     }
 
     /************** DELETE ALL TABLE *************/
@@ -1746,11 +1755,11 @@ public class dbData {
         db.execSQL("delete from "+ DBHelper.PMGSY_HABITATION_LIST_TABLE);
         db.execSQL("delete from "+ DBHelper.BRIDGES_CULVERT +" WHERE image_flag = 1 ");
         db.execSQL("delete from "+ DBHelper.SAVE_IMAGE_HABITATION_TABLE +" WHERE server_flag = 1 ");
-        db.execSQL("delete from "+ DBHelper.HABITATION_TABLE +" WHERE server_flag = 1 ");
-        db.execSQL("delete from "+ DBHelper.AGMT_FORM_TABLE +" WHERE server_flag = 1 ");
-        db.execSQL("delete from "+ DBHelper.AGMT_FORM_DISPLAY_DATA_TABLE +" WHERE server_flag = 1 ");
-        db.execSQL("delete from "+ DBHelper.AGMT_FORM_DISPLAY_COMMON_DATA_TABLE +" WHERE server_flag = 1 ");
-        db.execSQL("delete from "+ DBHelper.AGMT_SAVE_IMAGE_TABLE +" WHERE server_flag = 1 ");
+        db.execSQL("delete from "+ DBHelper.HABITATION_TABLE);
+        db.execSQL("delete from "+ DBHelper.AGMT_FORM_TABLE);
+        db.execSQL("delete from "+ DBHelper.AGMT_FORM_DISPLAY_DATA_TABLE);
+        db.execSQL("delete from "+ DBHelper.AGMT_FORM_DISPLAY_COMMON_DATA_TABLE);
+        db.execSQL("delete from "+ DBHelper.AGMT_SAVE_IMAGE_TABLE);
     }
 
 }

@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary_text_color">
+        android:background="@drawable/new_gradient_bg">
 
         <RelativeLayout
             android:id="@+id/toolbar"
@@ -100,6 +100,15 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_20sdp"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitEnd"
+                    android:id="@+id/no_data_gif"
+                    android:src="@drawable/new_no_result_image"
+                    android:layout_centerInParent="true"
+                    ></ImageView>
+
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nic.AGMTAssets.Adapter.AgmtFormDetailsAdapter;
@@ -25,7 +27,7 @@ public class ViewFormDetails extends AppCompatActivity {
     private PrefManager prefManager;
     private SQLiteDatabase db;
     public static DBHelper dbHelper;
-
+    ImageView no_data_gif;
 
     ArrayList<RoadListValue> agmtFormList;
     AgmtFormDetailsAdapter agmtFormDetailsAdapter;
@@ -56,7 +58,7 @@ public class ViewFormDetails extends AppCompatActivity {
         designation_name = findViewById(R.id.designation_name);
         hab_name_text = findViewById(R.id.text_view_1);
         form_name_text = findViewById(R.id.form_name);
-
+        no_data_gif = findViewById(R.id.no_data_gif);
 
 
         hab_code = String.valueOf(Integer.parseInt(getIntent().getStringExtra("hab_code")));
@@ -88,8 +90,14 @@ public class ViewFormDetails extends AppCompatActivity {
         agmtFormList.addAll(dbData.getAGMTCommonDataHabitationwise(hab_code,form_id));
         //Collections.sort(agmtFormList, (lhs, rhs) -> lhs.getForm_id().compareTo(rhs.getForm_id()));
         if(agmtFormList.size()>0){
+            no_data_gif.setVisibility(View.GONE);
+            habitation_recycler.setVisibility(View.VISIBLE);
             agmtFormDetailsAdapter = new AgmtFormDetailsAdapter(this, agmtFormList,dbData);
             habitation_recycler.setAdapter(agmtFormDetailsAdapter);
+        }
+        else {
+            no_data_gif.setVisibility(View.VISIBLE);
+            habitation_recycler.setVisibility(View.GONE);
         }
 
     }

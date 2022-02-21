@@ -40,12 +40,14 @@ public class AgmtFormAdapter extends RecyclerView.Adapter<AgmtFormAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView habitation_name;
         RelativeLayout hab_rl;
+        RelativeLayout hab_rl2;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
             habitation_name = itemView.findViewById(R.id.hab_name);
             hab_rl = itemView.findViewById(R.id.hab_rl);
+            hab_rl2 = itemView.findViewById(R.id.hab_rl2);
         }
 
 
@@ -61,7 +63,12 @@ public class AgmtFormAdapter extends RecyclerView.Adapter<AgmtFormAdapter.MyView
     public void onBindViewHolder(final AgmtFormAdapter.MyViewHolder holder, final int position) {
 
         holder.habitation_name.setText(habitationList.get(position).getForm_name_ta());
-
+        if(position % 2==0){
+            holder.hab_rl2.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.new_gradient_bg_2));
+        }
+        else {
+            holder.hab_rl2.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.new_gradient_bg_1));
+        }
         holder.hab_rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

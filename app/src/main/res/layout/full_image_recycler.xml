@@ -8,7 +8,7 @@
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark">
+        android:background="@drawable/new_gradient_bg">
 
         <TextView
             android:fontFamily="@string/lexenddeca_regular"
@@ -60,6 +60,7 @@
         android:layout_height="match_parent"
         android:scaleType="fitEnd"
         android:id="@+id/no_data_gif"
+        android:src="@drawable/new_no_result_image"
         android:layout_centerInParent="true"
         ></ImageView>
 

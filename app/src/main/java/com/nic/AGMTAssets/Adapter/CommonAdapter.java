@@ -50,6 +50,12 @@ public class CommonAdapter extends BaseAdapter {
         if(type.equalsIgnoreCase("PMGSYVillage")) {
             tv_type.setText(roadList.getPmgsyPvname());
         }
+        else if(type.equalsIgnoreCase("habList")) {
+            tv_type.setText(roadList.getPmgsyHabNameTa());
+        }
+        else if(type.equalsIgnoreCase("formList")) {
+            tv_type.setText(roadList.getForm_name_ta());
+        }
         return view;
     }
 }

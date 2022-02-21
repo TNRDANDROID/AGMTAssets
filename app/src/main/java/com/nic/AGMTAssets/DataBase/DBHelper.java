@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "RdAssetTracking";
+    private static final String DATABASE_NAME = "AGMTAssetTracking";
     private static final int DATABASE_VERSION = 1;
     public static final String ROAD_LIST_TABLE = "RoadList";
     public static final String ASSET_LIST_TABLE = "AssetList";
@@ -19,7 +19,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String HABITATION_TABLE = "habitation_table";
     public static final String AGMT_FORM_TABLE = "agmt_form_table";
     public static final String AGMT_FORM_DISPLAY_DATA_TABLE = "agmt_form_display_data_table";
-    public static final String AGMT_FORM_DISPLAY_DATA_TABLE_JSONARRAY = "agmt_form_display_data_table_json_array";
     public static final String AGMT_FORM_DISPLAY_COMMON_DATA_TABLE = "agmt_form_display_common_data_table";
     public static final String AGMT_SAVE_IMAGE_TABLE = "agmt_save_image_table";
 
@@ -49,6 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         "asset_id TEXT," +
                         "state_code TEXT," +
                         "bcode TEXT," +
+                        "flag TEXT," +
                         "pvcode TEXT," +
                         "disp_value TEXT," +
                         "hab_code TEXT)");

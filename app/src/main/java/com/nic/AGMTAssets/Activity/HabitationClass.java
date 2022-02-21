@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ import com.nic.AGMTAssets.Dialog.MyDialog;
 import com.nic.AGMTAssets.Model.RoadListValue;
 import com.nic.AGMTAssets.R;
 import com.nic.AGMTAssets.Session.PrefManager;
+import com.nic.AGMTAssets.Support.ProgressHUD;
 import com.nic.AGMTAssets.Utils.UrlGenerator;
 import com.nic.AGMTAssets.Utils.Utils;
 
@@ -55,8 +58,9 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
     ArrayList<RoadListValue> HabitationList;
     ArrayList<RoadListValue> HabitationListOrder;
     HabitationAdapter habitationAdapter;
-    ImageView log_out;
-
+    ImageView log_out,refresh_icon;
+    private ProgressHUD progressHUD;
+    private String isHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,22 +79,35 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
         designation_name = findViewById(R.id.designation_name);
         sync_data_rl = findViewById(R.id.sync_data_rl);
         log_out = findViewById(R.id.log_out);
+        refresh_icon = (ImageView) findViewById(R.id.refresh_icon);
 
         sync_data_rl.setVisibility(View.GONE);
-        designation_name.setText("Village Name: "+prefManager.getPvName());
-        village_name.setText("District Name: "+prefManager.getDistrictName());
+        designation_name.setText("Village Name: " + prefManager.getPvName());
+        village_name.setText("District Name: " + prefManager.getDistrictName());
 
         habitation_recycler = findViewById(R.id.habitation_recycler);
-        habitation_recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
-        HabitationList= new ArrayList<>();
-        HabitationListOrder= new ArrayList<>();
-        if(Utils.isOnline()){
-            getHabList();
-            getAgmtList();
-            getagmt_list_of_asset();
+        habitation_recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+        HabitationList = new ArrayList<>();
+        HabitationListOrder = new ArrayList<>();
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null) {
+            isHome = bundle.getString("Home");
+        }
+        if(getIntent().getStringExtra("Home")!=null){
+            isHome = getIntent().getStringExtra("Home");
+        }
+
+        if (isHome.equalsIgnoreCase("Login")){
+            if (Utils.isOnline()) {
+                getHabList();
+                getAgmtList();
+                getagmt_list_of_asset();
+            } else {
+                habitationFilterSpinner(prefManager.getDistrictCode(), prefManager.getBlockCode(), prefManager.getPvCode());
+            }
         }
         else {
-            habitationFilterSpinner(prefManager.getDistrictCode(),prefManager.getBlockCode(),prefManager.getPvCode());
+            habitationFilterSpinner(prefManager.getDistrictCode(), prefManager.getBlockCode(), prefManager.getPvCode());
         }
 
         syncButtonVisibility();
@@ -108,7 +125,31 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
             }
         });
 
+        refresh_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Utils.isOnline()) {
+                    refreshScreenCallApi();
+                }else{
+                    Utils.showAlert(HabitationClass.this,getResources().getString(R.string.no_internet));
+                }
+            }
+        });
+
     }
+    public void refreshScreenCallApi(){
+        setAnimationView();
+        dbData.open();
+        dbData.refreshTable();
+        fetchApi();
+    }
+
+    public void fetchApi(){
+        getHabList();
+        getAgmtList();
+        getagmt_list_of_asset();
+    }
+
 
     public void getHabList() {
         try {
@@ -290,10 +331,18 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if (progressHUD != null) {
+                progressHUD.cancel();
+            }
             habitationFilterSpinner(prefManager.getDistrictCode(),prefManager.getBlockCode(),prefManager.getPvCode());
         }
     }
     public class InsertAGMTFormTask extends AsyncTask<JSONObject, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
 
         @Override
         protected Void doInBackground(JSONObject... params) {
@@ -337,10 +386,18 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if (progressHUD != null) {
+                progressHUD.cancel();
+            }
 
         }
     }
     public class InsertAGMTFormDisplayAndCommonDataTask extends AsyncTask<JSONObject, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressHUD = ProgressHUD.show(HabitationClass.this, "Downloading", true, false, null);
+        }
 
         @Override
         protected Void doInBackground(JSONObject... params) {
@@ -368,6 +425,7 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
                             habListValue.setPmgsyBcode(Integer.valueOf((jsonArray.getJSONObject(i).getString("bcode"))));
                             habListValue.setPmgsyPvcode(Integer.valueOf((jsonArray.getJSONObject(i).getString("pvcode"))));
                             habListValue.setPmgsyHabcode(Integer.valueOf((jsonArray.getJSONObject(i).getString("hab_code"))));
+                            habListValue.setFlag("no");
                             JSONArray structureArray = jsonArray.getJSONObject(i).getJSONArray("display_data");
 
 
@@ -414,7 +472,10 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            if (progressHUD != null) {
+                progressHUD.cancel();
+            }
+            clearAnimations();
         }
     }
 
@@ -503,6 +564,20 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
             }
         }
     }
+
+    public void setAnimationView(){
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        rotation.setRepeatCount(Animation.INFINITE);
+        refresh_icon.startAnimation(rotation);
+
+//        Animationhandler.removeCallbacks(animationRunnable);
+//        Animationhandler.postDelayed(animationRunnable, 12000);
+    }
+
+    public void clearAnimations() {
+        refresh_icon.clearAnimation();
+    }
+
 }
 
 

@@ -100,6 +100,15 @@ private String sl_no;
 private String latitude;
 private String longitude;
 private String hab_asset_image;
+private String flag;
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
 
     public String getHab_asset_image() {
         return hab_asset_image;

@@ -6,6 +6,7 @@
     android:layout_margin="@dimen/_5sdp"
     android:layout_height="wrap_content">
 
+
     <RelativeLayout
         android:padding="@dimen/_10sdp"
         android:id="@+id/hab_rl"
@@ -14,8 +15,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rect_full_curve_bg">
+        <CheckBox
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/clicked_items"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="-5dp"
+            android:layout_marginRight="@dimen/_5sdp"/>
+        <ImageView
+
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:id="@+id/select_icon"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/oval"
+            />
+
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/upload_icon"
@@ -36,7 +58,7 @@
             />
 
         <TextView
-            android:layout_toLeftOf="@id/upload_icon"
+            android:layout_toLeftOf="@id/select_icon"
             android:layout_toRightOf="@+id/view_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,5 +69,6 @@
             android:textColor="@color/black"
             android:padding="@dimen/_7sdp"/>
     </RelativeLayout>
+
 
 </RelativeLayout>

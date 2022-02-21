@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,9 +24,11 @@ import com.nic.AGMTAssets.Activity.FullImageActivity;
 import com.nic.AGMTAssets.Activity.NewPendingScreen;
 import com.nic.AGMTAssets.Activity.ViewFormDetails;
 import com.nic.AGMTAssets.Constant.AppConstant;
+import com.nic.AGMTAssets.Interface.MultipleSelection;
 import com.nic.AGMTAssets.Model.RoadListValue;
 import com.nic.AGMTAssets.R;
 import com.nic.AGMTAssets.Session.PrefManager;
+import com.nic.AGMTAssets.Utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,14 +42,17 @@ public class NewPendingScreenAdapter extends RecyclerView.Adapter<NewPendingScre
 
     private final com.nic.AGMTAssets.DataBase.dbData dbData;
     private Context context;
-    private List<RoadListValue> habitationList;
+    private ArrayList<RoadListValue> habitationList;
     private PrefManager prefManager;
+    MultipleSelection multipleSelection;
+    int count=0;
 
-    public NewPendingScreenAdapter(Context context, List<RoadListValue> assetListValues, com.nic.AGMTAssets.DataBase.dbData dbData) {
+    public NewPendingScreenAdapter(Context context, ArrayList<RoadListValue> assetListValues, com.nic.AGMTAssets.DataBase.dbData dbData,MultipleSelection multipleSelection) {
         this.context = context;
         this.habitationList = assetListValues;
         this.dbData = dbData;
         prefManager = new PrefManager(context);
+        this.multipleSelection=multipleSelection;
     }
 
     @Override
@@ -57,7 +64,8 @@ public class NewPendingScreenAdapter extends RecyclerView.Adapter<NewPendingScre
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView habitation_name;
         RelativeLayout hab_rl;
-        ImageView view_icon,upload_icon;
+        ImageView view_icon,upload_icon,select_icon;
+        CheckBox clicked_items;
 
 
         public MyViewHolder(View itemView) {
@@ -66,6 +74,8 @@ public class NewPendingScreenAdapter extends RecyclerView.Adapter<NewPendingScre
             hab_rl = itemView.findViewById(R.id.hab_rl);
             view_icon = itemView.findViewById(R.id.view_icon);
             upload_icon = itemView.findViewById(R.id.upload_icon);
+            clicked_items = itemView.findViewById(R.id.clicked_items);
+            select_icon = itemView.findViewById(R.id.select_icon);
         }
 
 
@@ -81,13 +91,22 @@ public class NewPendingScreenAdapter extends RecyclerView.Adapter<NewPendingScre
     public void onBindViewHolder(final NewPendingScreenAdapter.MyViewHolder holder, final int position) {
 
         holder.habitation_name.setText(habitationList.get(position).getDisp_value());
+
+        if(habitationList.get(position).getFlag().equalsIgnoreCase("yes")){
+            holder.select_icon.setImageResource(R.drawable.check);
+        }
+        else {
+            holder.select_icon.setImageResource(R.drawable.oval);
+        }
+
+       /* if(habitationList.get(position).getFlag().equalsIgnoreCase("yes")){
+            holder.clicked_items.setChecked(true);
+        }
+        else {
+            holder.clicked_items.setChecked(false);
+        }*/
         //holder.habitation_name.setText("AssetId:"+habitationList.get(position).getAsseet_id()+"\n"+habitationList.get(position).getDisp_name()+habitationList.get(position).getDisp_value());
-        holder.hab_rl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //((ViewFormDetails)context).gotoViewFormDetails(position);
-            }
-        });
+
         holder.view_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +123,60 @@ public class NewPendingScreenAdapter extends RecyclerView.Adapter<NewPendingScre
             @Override
             public void onClick(View v) {
                 save_and_delete_alert(position,"save");
+            }
+        });
+
+        holder.select_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((holder.select_icon.getDrawable().getConstantState() == context.getResources().getDrawable(R.drawable.oval).getConstantState()))
+                {
+                    holder.select_icon.setImageResource(R.drawable.check);
+                    count=count+1;
+                    habitationList.get(position).setFlag("yes");
+                    multipleSelection.onClickedItems(habitationList);
+                    //notifyItemChanged(position);
+                }
+                else {
+                    holder.select_icon.setImageResource(R.drawable.oval);
+                    count=count-1;
+                    habitationList.get(position).setFlag("no");
+                    multipleSelection.onClickedItems(habitationList);
+                    //notifyItemChanged(position);
+                }
+            }
+        });
+        holder.clicked_items.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.clicked_items.isChecked()){
+                    holder.clicked_items.setChecked(false);
+                    //notifyDataSetChanged();
+                }
+                else {
+                    if(count<11){
+                        holder.clicked_items.setChecked(true);
+                        //notifyDataSetChanged();
+                    }
+                    else {
+                        Utils.showAlert(context,"Maximum Count Reached");
+                    }
+                }
+            }
+        });
+        holder.clicked_items.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    count=count+1;
+                    habitationList.get(position).setFlag("yes");
+                    multipleSelection.onClickedItems(habitationList);
+                }
+                else {
+                    count=count-1;
+                    habitationList.get(position).setFlag("no");
+                    multipleSelection.onClickedItems(habitationList);
+                }
             }
         });
 

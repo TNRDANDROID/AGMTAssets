@@ -51,4 +51,6 @@
     <string name="middle">Middle</string>
     <string name="take_photo">Take Photo</string>
     <string name="how_many_photos_do_you_want_to_take">How many photos do you want to take?</string>
+    <string name="choose_form">Choose Form</string>
+    <string name="go">Go</string>
 </resources>

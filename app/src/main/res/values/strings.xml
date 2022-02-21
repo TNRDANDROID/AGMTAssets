@@ -30,6 +30,7 @@
     <string name="user_name">User Name</string>
     <string name="welcome">Welcome</string>
     <string name="choose_habitation">Choose Habitation</string>
+    <string name="choose_form">Choose Form</string>
 
     <!--<string name="take_photo">Take Photo</string>-->
     <string name="close">close</string>
@@ -66,4 +67,5 @@
     <string name="google_maps_key">AIzaSyDrpebleLz3qFDjczT35JU582PYVUPRWxY</string>
     <string name="take_photo">Take Photo</string>
     <string name="how_many_photos_do_you_want_to_take">How many photos do you want to take?</string>
+    <string name="go">Go</string>
 </resources>

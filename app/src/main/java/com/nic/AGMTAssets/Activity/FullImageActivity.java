@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 
 public class FullImageActivity extends AppCompatActivity implements Api.ServerResponseListener{
 
-    ImageView back,home_img;
+    ImageView back,home_img,no_data_gif;
     RecyclerView image_recycler;
     public com.nic.AGMTAssets.DataBase.dbData dbData = new dbData(this);
     private PrefManager prefManager;
@@ -68,6 +69,7 @@ public class FullImageActivity extends AppCompatActivity implements Api.ServerRe
         back = findViewById(R.id.back_img);
         home_img = findViewById(R.id.home_img);
         image_recycler = findViewById(R.id.image_preview_recyclerview);
+        no_data_gif = findViewById(R.id.no_data_gif);
         //image_recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         image_recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
 
@@ -76,6 +78,8 @@ public class FullImageActivity extends AppCompatActivity implements Api.ServerRe
         form_id = getIntent().getStringExtra("form_id");
         asset_id = getIntent().getStringExtra("asset_id");
 
+        no_data_gif.setVisibility(View.GONE);
+        image_recycler.setVisibility(View.GONE);
         if(type.equals("Offline")){
             getAgmtForms();
         }
@@ -93,9 +97,15 @@ public class FullImageActivity extends AppCompatActivity implements Api.ServerRe
         imageList.addAll(dbData.getAgmtImages(form_id,asset_id,hab_code));
         //Collections.sort(agmtFormList, (lhs, rhs) -> lhs.getForm_id().compareTo(rhs.getForm_id()));
         if(imageList.size()>0){
+            no_data_gif.setVisibility(View.GONE);
+            image_recycler.setVisibility(View.VISIBLE);
             //image_recycler.smoothScrollToPosition(0);
             viewImagesAdapter = new ViewImagesAdapter(this, imageList,dbData,"");
             image_recycler.setAdapter(viewImagesAdapter);
+        }
+        else {
+            no_data_gif.setVisibility(View.VISIBLE);
+            image_recycler.setVisibility(View.GONE);
         }
 
     }
@@ -276,9 +286,15 @@ public class FullImageActivity extends AppCompatActivity implements Api.ServerRe
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if(onlineImageList.size()>0){
+                no_data_gif.setVisibility(View.GONE);
+                image_recycler.setVisibility(View.VISIBLE);
                 //image_recycler.smoothScrollToPosition(0);
                 viewImagesAdapter = new ViewImagesAdapter(FullImageActivity.this, onlineImageList,dbData,"Online");
                 image_recycler.setAdapter(viewImagesAdapter);
+            }
+            else {
+                no_data_gif.setVisibility(View.VISIBLE);
+                image_recycler.setVisibility(View.GONE);
             }
         }
     }

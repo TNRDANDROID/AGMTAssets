@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:background="@color/primary_text_color">
+            android:background="@drawable/new_gradient_bg">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,6 +48,22 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/new_no_result_image"/>
         </RelativeLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:id="@+id/upload_btn"
+            android:background="@drawable/btn_bg_"
+            android:layout_marginRight="@dimen/_40sdp"
+            android:layout_marginLeft="@dimen/_40sdp"
+            android:textColor="@color/white"
+            android:text="@string/upload_data"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_13sdp"
+            android:fontFamily="@string/lexenddeca_regular"
+            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
 </RelativeLayout>

@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/white_background"
     tools:context=".Activity.LoginScreen">
 
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp">
+        android:layout_height="@dimen/_60sdp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,6 +21,7 @@
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_15sdp"/>
         <ImageView
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -29,18 +29,21 @@
             android:src="@drawable/ic_wave_black"/>
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:scaleType="fitXY"
             android:src="@drawable/ic_wave_blue"/>
         <ImageView
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_160sdp"
             android:layout_alignParentBottom="true"
             android:scaleType="fitXY"
             android:src="@drawable/ic_wave_sandle"/>
         <ImageView
+            android:visibility="gone"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_80sdp"
             android:layout_alignParentBottom="true"
@@ -56,10 +59,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header_layout"
-        android:layout_marginTop="-30dp"
-        android:background="@drawable/rect_topside_curve_white_bg">
-
+        android:layout_margin="@dimen/_15sdp"
+       >
         <RelativeLayout
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/log_in_new_curved_bg"
             android:id="@+id/rl6"
             android:layout_above="@id/tv_version_number"
             android:layout_width="match_parent"
@@ -71,9 +75,10 @@
                 android:text="@string/welcome"
                 android:id="@+id/tv_1"
                 android:fontFamily="@string/lexenddeca_regular"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:layout_marginTop="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:layout_alignParentEnd="true"
                 android:textSize="@dimen/_20sdp"/>
 
             <RelativeLayout
@@ -182,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/primary_text_color"
+                    android:textColor="@color/white"
                     android:text="@string/login"
                     android:fontFamily="@string/lexenddeca_regular"
                     android:textSize="@dimen/_14sdp"/>
@@ -213,6 +218,13 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_15sdp"
             android:fontFamily="@string/lexenddeca_extralight" />
+        <ImageView
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginLeft="@dimen/_7sdp"
+            android:id="@+id/logo"
+            android:src="@mipmap/tamilnadu_logo"/>
+
 
     </RelativeLayout>
 

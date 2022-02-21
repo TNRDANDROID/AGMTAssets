@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#0328F6</color>
-    <color name="colorPrimaryDark">#0328F6</color>
+    <color name="colorPrimary">#F64595</color>
+    <color name="colorPrimaryDark">#C51162</color>
     <color name="colorAccent">#7c4dff</color>
     <color name="lightgray">#ededed</color>
     <color name="deeppurple">#7c4dff</color>
@@ -19,6 +19,8 @@
     <color name="vertical_line_light_grey">#ECEEF4</color>
     <color name="primary_text_color">#2A4AFB</color>
     <color name="primary_pink_color">#F4A0C6</color>
+    <color name="primary_dark_pink_color">#C51162</color>
+    <color name="primary_orange_color">#FF6D00</color>
 
     <color name="blue_background" tools:ignore="MissingDefaultResource">#242b35</color>
     <color name="border_line">#252b34</color>
