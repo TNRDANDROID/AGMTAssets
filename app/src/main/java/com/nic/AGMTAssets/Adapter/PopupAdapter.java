@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.nic.AGMTAssets.Model.RoadListValue;
@@ -20,11 +24,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+
+
+
 public class PopupAdapter implements GoogleMap.InfoWindowAdapter {
     private View popup=null;
     private LayoutInflater inflater=null;
     ArrayList<RoadListValue> images;
     Context context;
+    GoogleMapAdapterImages googleMapAdapterImages;
 
     public PopupAdapter(LayoutInflater inflater ,ArrayList<RoadListValue> images,Context context ) {
         this.inflater=inflater;
@@ -43,10 +51,12 @@ public class PopupAdapter implements GoogleMap.InfoWindowAdapter {
         if (popup == null) {
             popup=inflater.inflate(R.layout.popup, null);
         }
+        ArrayList<Bitmap> bitmaps = new ArrayList<>();
         Bitmap bitmap = null;
         TextView tv=(TextView)popup.findViewById(R.id.title);
         ImageView image=(ImageView) popup.findViewById(R.id.icon);
-
+        RecyclerView map_recycler=(RecyclerView) popup.findViewById(R.id.map_recycler);
+        map_recycler.setLayoutManager(new GridLayoutManager(context,2));
         //tv.setText(marker.getTitle());
         tv=(TextView)popup.findViewById(R.id.snippet);
         //tv.setText(marker.getSnippet());
@@ -55,6 +65,7 @@ public class PopupAdapter implements GoogleMap.InfoWindowAdapter {
             if(Double.parseDouble(images.get(i).getLatitude())==(marker.getPosition().latitude)&&
                     Double.parseDouble(images.get(i).getLongitude())==(marker.getPosition().longitude)){
                 bitmap = images.get(i).getImage();
+                bitmaps.add(images.get(i).getImage());
             }
         }
         if(bitmap!=null){
@@ -63,6 +74,9 @@ public class PopupAdapter implements GoogleMap.InfoWindowAdapter {
         else {
             image.setImageResource(R.drawable.background);
         }
+
+        googleMapAdapterImages = new GoogleMapAdapterImages(context,bitmaps);
+        map_recycler.setAdapter(googleMapAdapterImages);
 
 
         return(popup);

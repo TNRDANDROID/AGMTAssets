@@ -85,6 +85,7 @@ public class dbData {
         values.put("hab_code", kvvtSurvey.getPmgsyHabcode());
         values.put("disp_value", kvvtSurvey.getText_value());
         values.put("flag", kvvtSurvey.getFlag());
+        values.put("photo_taken", kvvtSurvey.getPhoto_taken());
 
 
         long id = db.insert(DBHelper.AGMT_FORM_DISPLAY_COMMON_DATA_TABLE,null,values);
@@ -199,6 +200,8 @@ public class dbData {
                             .getColumnIndexOrThrow("hab_code"))));
                     card.setText_value(cursor.getString(cursor
                             .getColumnIndexOrThrow("disp_value")));
+                    card.setPhoto_taken(cursor.getString(cursor
+                            .getColumnIndexOrThrow("photo_taken")));
                     cards.add(card);
                 }
             }
@@ -330,6 +333,50 @@ public class dbData {
 
         try {
             cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE+" where form_id = "+form_id+" and asset_id = "+asset_id+" and hab_code = "+hab_code,null);
+
+            //cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE,null);
+            // cursor = db.query(CardsDBHelper.TABLE_CARDS,
+            //       COLUMNS, null, null, null, null, null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    byte[] photo = cursor.getBlob(cursor.getColumnIndexOrThrow("image"));
+                    byte[] decodedString = Base64.decode(photo, Base64.DEFAULT);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    RoadListValue card = new RoadListValue();
+
+                    card.setForm_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("form_id")));
+                    card.setAsseet_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("asset_id")));
+                    card.setPmgsyHabcode(Integer.valueOf(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code"))));
+                    card.setSl_no(cursor.getString(cursor
+                            .getColumnIndexOrThrow("sl_no")));
+                    card.setLatitude(cursor.getString(cursor
+                            .getColumnIndexOrThrow("latitude")));
+                    card.setLongitude(cursor.getString(cursor
+                            .getColumnIndexOrThrow("longitude")));
+                    card.setImage(decodedByte);
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+    public ArrayList<RoadListValue> getParticularAgmtImages(String form_id,String asset_id,String hab_code,String sl_no) {
+
+        ArrayList<RoadListValue> cards = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE+" where form_id = "+form_id+" and asset_id = "+asset_id+" and hab_code = "+hab_code+" and sl_no ="+sl_no,null);
 
             //cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE,null);
             // cursor = db.query(CardsDBHelper.TABLE_CARDS,

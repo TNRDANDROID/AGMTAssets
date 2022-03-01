@@ -214,6 +214,10 @@ public class FullImageActivity extends AppCompatActivity implements Api.ServerRe
                     //new InsertAGMTFormTask().execute(jsonObject);
                     new InsertAGMTFormDisplayAndCommonDataTask().execute(jsonObject);
                 }
+                else {
+                    no_data_gif.setVisibility(View.VISIBLE);
+                    image_recycler.setVisibility(View.GONE);
+                }
                 Log.d("imageList", "" + responseDecryptedBlockKey);
             }
             if ("deleteImage".equals(urlType) && responseObj != null) {

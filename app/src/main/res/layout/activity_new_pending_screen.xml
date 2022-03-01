@@ -14,18 +14,40 @@
         <RelativeLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_40sdp"
-            android:background="@drawable/new_gradient_bg">
+            android:layout_height="@dimen/_100sdp"
+            android:background="@drawable/new_gradient_bg_bottom_curved">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:text="@string/pending_screen"
                 android:fontFamily="@string/lexenddeca_regular"
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/white"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/village_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/designation_name"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_below="@id/village_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"></TextView>
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -38,16 +60,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/pending_recycler"
-                android:layout_margin="@dimen/_7sdp"/>
+                />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/no_data_icon"
-                android:scaleType="fitEnd"
-                android:layout_centerInParent="true"
-                android:src="@drawable/new_no_result_image"/>
         </RelativeLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/no_data_icon"
+            android:scaleType="fitEnd"
+            android:layout_centerInParent="true"
+            android:src="@drawable/new_no_result_image"/>
+
 
         <Button
             android:layout_width="match_parent"
@@ -55,7 +78,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/_10sdp"
             android:id="@+id/upload_btn"
-            android:background="@drawable/btn_bg_"
+            android:background="@drawable/new_lig_in_btn_gradient_bg"
             android:layout_marginRight="@dimen/_40sdp"
             android:layout_marginLeft="@dimen/_40sdp"
             android:textColor="@color/white"

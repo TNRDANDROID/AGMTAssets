@@ -80,6 +80,7 @@
                 android:textSize="@dimen/_13sdp"
                 android:padding="@dimen/_10sdp"
                 android:id="@+id/form_name"
+                android:textAlignment="center"
                 android:layout_below="@+id/text_view_1"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -123,8 +124,10 @@
                         android:layout_marginLeft="@dimen/_30sdp"
                         android:layout_marginRight="@dimen/_30sdp"
                         android:text="@string/take_photo"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:id="@+id/take_photo"
-                        android:background="@drawable/btn_bg_"
+                        android:background="@drawable/log_in_new_curved_bg"
                         android:textColor="@color/white"
                         android:fontFamily="@string/lexenddeca_regular"/>
                     <Button
@@ -135,7 +138,9 @@
                         android:layout_marginRight="@dimen/_30sdp"
                         android:text="@string/view_photos"
                         android:id="@+id/view_photo"
-                        android:background="@drawable/log_in_btn_bg_new"
+                        android:clickable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:background="@drawable/rect_line_bg_new"
                         android:textColor="@color/primary_text_color"
                         android:fontFamily="@string/lexenddeca_regular"/>
 

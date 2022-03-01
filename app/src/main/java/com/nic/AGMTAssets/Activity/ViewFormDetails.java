@@ -1,6 +1,7 @@
 package com.nic.AGMTAssets.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,7 +78,8 @@ public class ViewFormDetails extends AppCompatActivity {
 
         habitation_recycler = findViewById(R.id.habitation_recycler);
         habitation_recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
-
+        /*DividerItemDecoration itemDecoration = new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.VERTICAL);
+        habitation_recycler.addItemDecoration(itemDecoration);*/
         agmtFormList = new ArrayList<>();
         getAgmtForms();
     }

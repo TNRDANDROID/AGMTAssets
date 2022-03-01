@@ -7,7 +7,7 @@
 
                 android:topLeftRadius="3dp"
                 android:topRightRadius="3dp" />
-            <solid android:color="#c799c7" />
+            <solid android:color="#F4B88A" />
         </shape>
     </item>
     <item
@@ -20,7 +20,7 @@
             <corners
                 android:bottomLeftRadius="5dp"
                 android:bottomRightRadius="5dp" />
-            <solid android:color="#bf86bd" />
+            <solid android:color="#F16443" />
 
         </shape>
     </item>

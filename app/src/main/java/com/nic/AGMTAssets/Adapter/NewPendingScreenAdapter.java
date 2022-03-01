@@ -131,10 +131,15 @@ public class NewPendingScreenAdapter extends RecyclerView.Adapter<NewPendingScre
             public void onClick(View v) {
                 if((holder.select_icon.getDrawable().getConstantState() == context.getResources().getDrawable(R.drawable.oval).getConstantState()))
                 {
-                    holder.select_icon.setImageResource(R.drawable.check);
-                    count=count+1;
-                    habitationList.get(position).setFlag("yes");
-                    multipleSelection.onClickedItems(habitationList);
+                    if(count<11) {
+                        holder.select_icon.setImageResource(R.drawable.check);
+                        count = count + 1;
+                        habitationList.get(position).setFlag("yes");
+                        multipleSelection.onClickedItems(habitationList);
+                    }
+                    else {
+                        Utils.showAlert(context,"Maximum Count Reached");
+                    }
                     //notifyItemChanged(position);
                 }
                 else {
@@ -154,7 +159,7 @@ public class NewPendingScreenAdapter extends RecyclerView.Adapter<NewPendingScre
                     //notifyDataSetChanged();
                 }
                 else {
-                    if(count<11){
+                    if(count>11){
                         holder.clicked_items.setChecked(true);
                         //notifyDataSetChanged();
                     }

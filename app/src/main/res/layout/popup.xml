@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_margin="@dimen/_10sdp"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl1">
     <ImageView
         android:layout_marginLeft="@dimen/_10sdp"
         android:id="@+id/icon"
@@ -17,6 +21,8 @@
         android:contentDescription="icon"/>
 
     <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/icon"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -40,5 +46,12 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"/>
     </LinearLayout>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/map_recycler"
+        android:layout_below="@id/rl1"
+        android:layout_margin="@dimen/_3sdp"/>
 
-</LinearLayout>
+</RelativeLayout>

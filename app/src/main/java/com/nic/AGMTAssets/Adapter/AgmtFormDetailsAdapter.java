@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,8 +44,9 @@ public class AgmtFormDetailsAdapter extends RecyclerView.Adapter<AgmtFormDetails
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView habitation_name;
-        RelativeLayout hab_rl;
+        RelativeLayout hab_rl,photo_taken_status_rl;
         RelativeLayout hab_rl2;
+        ImageView view_icon;
 
 
         public MyViewHolder(View itemView) {
@@ -52,6 +54,8 @@ public class AgmtFormDetailsAdapter extends RecyclerView.Adapter<AgmtFormDetails
             habitation_name = itemView.findViewById(R.id.hab_name);
             hab_rl = itemView.findViewById(R.id.hab_rl);
             hab_rl2 = itemView.findViewById(R.id.hab_rl2);
+            view_icon = itemView.findViewById(R.id.view_icon);
+            photo_taken_status_rl = itemView.findViewById(R.id.photo_status_rl);
         }
 
 
@@ -68,13 +72,22 @@ public class AgmtFormDetailsAdapter extends RecyclerView.Adapter<AgmtFormDetails
 
        holder.habitation_name.setText(habitationList.get(position).getText_value());
 
-       if(position % 2==0){
-           holder.hab_rl2.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.new_gradient_bg_2));
+      /* if(position % 2==0){
+           //holder.hab_rl2.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.new_gradient_bg_2));
+           holder.hab_rl.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.layer_list_blue));
        }
        else {
-           holder.hab_rl2.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.new_gradient_bg_1));
+           //holder.hab_rl2.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.new_gradient_bg_1));
+           holder.hab_rl.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.layer_list_pink));
+       }*/
+       if(habitationList.get(position).getPhoto_taken().equalsIgnoreCase("Y")){
+           holder.view_icon.setImageResource(R.mipmap.tick_mark);
+           holder.photo_taken_status_rl.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.photo_taken_curve_rect));
        }
-       //holder.habitation_name.setText("AssetId:"+habitationList.get(position).getAsseet_id()+"\n"+habitationList.get(position).getDisp_name()+habitationList.get(position).getDisp_value());
+       else {
+           holder.view_icon.setImageResource(R.drawable.ic_no_image);
+           holder.photo_taken_status_rl.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.photo_not_taken_rect));
+       }
         holder.hab_rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

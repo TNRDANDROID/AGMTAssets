@@ -514,37 +514,6 @@ public class GoogleMapFragment extends FragmentActivity implements OnMapReadyCal
                 return decodedByte;
         }
         private void addMarkersToMap() {
-                //mMap.clear();
-                /*for (int i = 0; i < onlineImageList.size(); i++) {
-                        LatLng ll = new LatLng(Double.parseDouble(onlineImageList.get(i).getLatitude()), Double.parseDouble(onlineImageList.get(i).getLongitude()));
-                        BitmapDescriptor bitmapMarker;
-                        Bitmap bitmap;
-                        bitmapMarker = BitmapDescriptorFactory.fromBitmap(onlineImageList.get(i).getImage());
-                        */
-                /*switch (Cars.get(i).getState()) {
-                                case 0:
-                                        bitmapMarker = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
-                                        Log.i("TAG", "RED");
-                                        break;
-                                case 1:
-                                        bitmapMarker = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
-                                        Log.i("TAG", "GREEN");
-                                        break;
-                                case 2:
-                                        bitmapMarker = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE);
-                                        Log.i("TAG", "ORANGE");
-                                        break;
-                                default:
-                                        bitmapMarker = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED);
-                                        Log.i("TAG", "DEFAULT");
-                                        break;
-                        }*/
-                /*
-                        mMap.addMarker(new MarkerOptions().position(ll).title("").icon(bitmapMarker));
-
-
-                        //Log.i("TAG","Car number "+i+"  was added " +mMarkers.get(mMarkers.size()-1).getId());
-                }*/
 
                 for(int i = 0 ; i < onlineImageList.size() ; i++) {
                         int height = 200;

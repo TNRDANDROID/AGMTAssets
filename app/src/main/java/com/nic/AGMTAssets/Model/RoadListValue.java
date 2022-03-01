@@ -101,6 +101,15 @@ private String latitude;
 private String longitude;
 private String hab_asset_image;
 private String flag;
+private String photo_taken;
+
+    public String getPhoto_taken() {
+        return photo_taken;
+    }
+
+    public void setPhoto_taken(String photo_taken) {
+        this.photo_taken = photo_taken;
+    }
 
     public String getFlag() {
         return flag;

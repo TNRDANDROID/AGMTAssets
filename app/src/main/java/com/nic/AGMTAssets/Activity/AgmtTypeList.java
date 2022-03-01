@@ -77,7 +77,7 @@ public class AgmtTypeList extends AppCompatActivity {
         agmtFormList.addAll(dbData.getAgmtForm());
         //Collections.sort(agmtFormList, (lhs, rhs) -> lhs.getForm_id().compareTo(rhs.getForm_id()));
         if(agmtFormList.size()>0){
-            agmtFormAdapter = new AgmtFormAdapter(this, agmtFormList,dbData);
+            agmtFormAdapter = new AgmtFormAdapter(this, agmtFormList,dbData,hab_code);
             habitation_recycler.setAdapter(agmtFormAdapter);
         }
 

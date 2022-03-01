@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/_15sdp"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_10sdp"
+    android:background="@drawable/log_in_new_curved_bg">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_list_value"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@string/lexenddeca_regular"
+        android:textSize="@dimen/_13sdp"
+        android:textAlignment="center"/>
+
+</RelativeLayout>

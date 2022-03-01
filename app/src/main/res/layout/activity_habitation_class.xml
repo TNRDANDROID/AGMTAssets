@@ -18,8 +18,9 @@
             android:layout_height="@dimen/_80sdp">
 
             <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:padding="@dimen/_2sdp"
                 android:layout_alignParentStart="true"
                 android:id="@+id/refresh_icon"
                 android:src="@drawable/ic_autorenew_white_24dp"
@@ -64,17 +65,6 @@
             android:layout_below="@+id/toolbar"
             android:background="@drawable/rect_topside_curve_habitation_bg">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:fontFamily="@string/lexenddeca_regular"
-                android:textSize="@dimen/_13sdp"
-                android:padding="@dimen/_10sdp"
-                android:id="@+id/text_view_1"
-                android:layout_marginLeft="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/choose_habitation"/>
 
             <RelativeLayout
                 android:layout_marginTop="@dimen/_10sdp"
@@ -102,7 +92,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_2sdp"
+                android:padding="@dimen/_5sdp"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:layout_alignParentLeft="true"
                 android:layout_toLeftOf="@+id/upload_icon_rl"
@@ -115,7 +106,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/text_view_1"
+                android:layout_below="@+id/sync_data_rl"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/rect_topside_curve_white_bg">
 
@@ -125,12 +116,28 @@
                     android:id="@+id/view_2"
                     android:background="@color/vertical_line_grey"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/_7sdp"></View>
+                    android:layout_marginTop="@dimen/_7sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:fontFamily="@string/lexenddeca_regular"
+                    android:textSize="@dimen/_13sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:id="@+id/text_view_1"
+                    android:layout_below="@+id/view_2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="@string/choose_habitation"/>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/habitation_recycler"
+                    android:layout_below="@+id/text_view_1"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_20sdp"/>

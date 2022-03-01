@@ -106,9 +106,8 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
                 habitationFilterSpinner(prefManager.getDistrictCode(), prefManager.getBlockCode(), prefManager.getPvCode());
             }
         }
-        else {
+
             habitationFilterSpinner(prefManager.getDistrictCode(), prefManager.getBlockCode(), prefManager.getPvCode());
-        }
 
         syncButtonVisibility();
 
@@ -256,31 +255,6 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
         HabitationListOrder.clear();
 
         HabitationListOrder.addAll(dbData.getVillageAll_Habitation(dcode,bcode,pvcode));
-       /* if (HABList.getCount() > 0) {
-            if (HABList.moveToFirst()) {
-                do {
-                    RoadListValue habList = new RoadListValue();
-                    int districtCode = Integer.parseInt(HABList.getString(HABList.getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
-                    int blockCode = Integer.parseInt(HABList.getString(HABList.getColumnIndexOrThrow(AppConstant.BLOCK_CODE)));
-                    int pvCode = Integer.parseInt(HABList.getString(HABList.getColumnIndexOrThrow(AppConstant.PV_CODE)));
-                    int habCode = Integer.parseInt(HABList.getString(HABList.getColumnIndexOrThrow("habitation_code")));
-                    String habName = HABList.getString(HABList.getColumnIndexOrThrow(AppConstant.HABITATION_NAME));
-                    String habName_ta = HABList.getString(HABList.getColumnIndexOrThrow(AppConstant.HABITATION_NAME_TA));
-
-                    habList.setPmgsyDcode(districtCode);
-                    habList.setPmgsyBcode(blockCode);
-                    habList.setPmgsyPvcode(pvCode);
-                    habList.setHabCode(habCode);
-                    habList.setPmgsyHabName(habName);
-                    habList.setPmgsyHabNameTa(habName_ta);
-
-                    HabitationListOrder.add(habList);
-                } while (HABList.moveToNext());
-            }
-            Log.d("Habitationspinnersize", "" + HabitationListOrder.size());
-
-        }
-*/
        Collections.sort(HabitationListOrder, (lhs, rhs) -> lhs.getPmgsyHabNameTa().compareTo(rhs.getPmgsyHabNameTa()));
         if(HabitationListOrder.size()>0){
             habitationAdapter = new HabitationAdapter(this,HabitationListOrder,dbData);
@@ -289,7 +263,11 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
 
         }
     public class InsertHabTask extends AsyncTask<JSONObject, Void, Void> {
-
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressHUD = ProgressHUD.show(HabitationClass.this, "Downloading", true, false, null);
+        }
         @Override
         protected Void doInBackground(JSONObject... params) {
             dbData.open();
@@ -331,18 +309,19 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if (progressHUD != null) {
+           /* if (progressHUD != null) {
                 progressHUD.cancel();
-            }
+            }*/
             habitationFilterSpinner(prefManager.getDistrictCode(),prefManager.getBlockCode(),prefManager.getPvCode());
         }
     }
     public class InsertAGMTFormTask extends AsyncTask<JSONObject, Void, Void> {
 
-        @Override
+       /* @Override
         protected void onPreExecute() {
-
-        }
+            super.onPreExecute();
+            progressHUD = ProgressHUD.show(HabitationClass.this, "Downloading", true, false, null);
+        }*/
 
         @Override
         protected Void doInBackground(JSONObject... params) {
@@ -393,12 +372,11 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
         }
     }
     public class InsertAGMTFormDisplayAndCommonDataTask extends AsyncTask<JSONObject, Void, Void> {
-        @Override
+        /*@Override
         protected void onPreExecute() {
             super.onPreExecute();
             progressHUD = ProgressHUD.show(HabitationClass.this, "Downloading", true, false, null);
-        }
-
+        }*/
         @Override
         protected Void doInBackground(JSONObject... params) {
             dbData.open();
@@ -425,6 +403,7 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
                             habListValue.setPmgsyBcode(Integer.valueOf((jsonArray.getJSONObject(i).getString("bcode"))));
                             habListValue.setPmgsyPvcode(Integer.valueOf((jsonArray.getJSONObject(i).getString("pvcode"))));
                             habListValue.setPmgsyHabcode(Integer.valueOf((jsonArray.getJSONObject(i).getString("hab_code"))));
+                            habListValue.setPhoto_taken((jsonArray.getJSONObject(i).getString("photo_taken")));
                             habListValue.setFlag("no");
                             JSONArray structureArray = jsonArray.getJSONObject(i).getJSONArray("display_data");
 
@@ -483,14 +462,16 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
     protected void onResume() {
         super.onResume();
         syncButtonVisibility();
+        habitationFilterSpinner(prefManager.getDistrictCode(), prefManager.getBlockCode(), prefManager.getPvCode());
+
     }
 
     public void syncButtonVisibility() {
         dbData.open();
-        ArrayList<RoadListValue> assetsCount = dbData.getSavedAsset();
+        /*ArrayList<RoadListValue> assetsCount = dbData.getSavedAsset();
         ArrayList<RoadListValue> trackCount = dbData.getSavedTrack();
         ArrayList<RoadListValue> habitationCount = dbData.getSavedHabitation("0");
-        ArrayList<RoadListValue> bridgesCount = dbData.getAllBridges("0","upload");
+        ArrayList<RoadListValue> bridgesCount = dbData.getAllBridges("0","upload");*/
         ArrayList<RoadListValue> image_count = dbData.getUniqueAgmtImages();
 
 
@@ -570,8 +551,6 @@ public class HabitationClass extends AppCompatActivity implements Api.ServerResp
         rotation.setRepeatCount(Animation.INFINITE);
         refresh_icon.startAnimation(rotation);
 
-//        Animationhandler.removeCallbacks(animationRunnable);
-//        Animationhandler.postDelayed(animationRunnable, 12000);
     }
 
     public void clearAnimations() {

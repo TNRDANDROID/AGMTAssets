@@ -1,10 +1,12 @@
 package com.nic.AGMTAssets.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -46,6 +48,7 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
     private SQLiteDatabase db;
     public static DBHelper dbHelper;
     ImageView no_data_icon;
+    TextView village_name,district_name;
 
     ArrayList<RoadListValue> listValues;
     NewPendingScreenAdapter newPendingScreenAdapter;
@@ -56,6 +59,7 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
 
     Button upload_btn;
     ArrayList<RoadListValue> clickedList;
+    String onBackPressFlag="";
 
 
     @Override
@@ -70,16 +74,21 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
             e.printStackTrace();
         }
 
-        prefManager = new PrefManager(this);
 
+        prefManager = new PrefManager(this);
+        village_name = findViewById(R.id.village_name);
+        district_name = findViewById(R.id.designation_name);
         pending_recycler = findViewById(R.id.pending_recycler);
         no_data_icon = findViewById(R.id.no_data_icon);
         upload_btn = findViewById(R.id.upload_btn);
         pending_recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),1));
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getApplicationContext(),DividerItemDecoration.VERTICAL);
+        pending_recycler.addItemDecoration(itemDecoration);
         no_data_icon.setVisibility(View.GONE);
         pending_recycler.setVisibility(View.GONE);
         upload_btn.setVisibility(View.GONE);
-
+        village_name.setText("Village Name: " + prefManager.getPvName());
+        district_name.setText("District Name: " + prefManager.getDistrictName());
         upload_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +158,7 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
                 if (jsonObject.getString("STATUS").equalsIgnoreCase("OK") && jsonObject.getString("RESPONSE").equalsIgnoreCase("OK")) {
 
                     Utils.showAlert(this,jsonObject.getString("MESSAGE"));
+                    onBackPressFlag="yes";
                     for(int i=0;i<clickedList.size();i++){
                         if(clickedList.get(i).getFlag().equalsIgnoreCase("yes")){
                             String form_id = clickedList.get(i).getForm_id();
@@ -233,6 +243,7 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
                 @Override
                 public void onClick(View v) {
                     if(save_delete.equals("save")) {
+                        upload_btn.setVisibility(View.GONE);
                         uploadPending(list);
                         dialog.dismiss();
                     }
@@ -334,6 +345,18 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
         byte [] b=baos.toByteArray();
         String temp= Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(onBackPressFlag.equals("yes")){
+            Intent intent = new Intent(NewPendingScreen.this,HabitationClass.class);
+            intent.putExtra("Home","Login");
+            startActivity(intent);
+            finish();
+        }
+        else {
+        super.onBackPressed();}
     }
 
 }

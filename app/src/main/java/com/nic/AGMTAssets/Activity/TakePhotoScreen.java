@@ -3,6 +3,8 @@ package com.nic.AGMTAssets.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
@@ -47,8 +49,10 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.nic.AGMTAssets.Adapter.CountAdapter;
 import com.nic.AGMTAssets.DataBase.DBHelper;
 import com.nic.AGMTAssets.DataBase.dbData;
+import com.nic.AGMTAssets.Model.RoadListValue;
 import com.nic.AGMTAssets.R;
 import com.nic.AGMTAssets.Session.PrefManager;
 import com.nic.AGMTAssets.Support.MyLocationListener;
@@ -85,6 +89,7 @@ public class TakePhotoScreen extends AppCompatActivity {
     TextView latitude_text, longtitude_text,text_start_end_middle;
     EditText myEditTextView;
     ScrollView scrollView;
+    RecyclerView count_recycler;
     RelativeLayout mini_number_count_text_layout,maxi_number_count_text_layout;
     TextView mini_number_count_text,maxi_number_count_text;
     private List<View> viewArrayList = new ArrayList<>();
@@ -102,6 +107,8 @@ public class TakePhotoScreen extends AppCompatActivity {
     int last_position=0;
     String back_flag="";
 
+    CountAdapter countAdapter;
+
     public com.nic.AGMTAssets.DataBase.dbData dbData = new dbData(this);
     private PrefManager prefManager;
     private SQLiteDatabase db;
@@ -115,6 +122,8 @@ public class TakePhotoScreen extends AppCompatActivity {
         maxi_number_count_text_layout =findViewById(R.id.maxi_number_count_text_layout);
         mini_number_count_text =findViewById(R.id.mini_number_count_text);
         maxi_number_count_text =findViewById(R.id.maxi_number_count_text);
+        count_recycler =findViewById(R.id.count_recycler);
+        count_recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         try {
             dbHelper = new DBHelper(this);
             db = dbHelper.getWritableDatabase();
@@ -161,6 +170,7 @@ public class TakePhotoScreen extends AppCompatActivity {
 
         mini_number_count_text.setText(min_no_of_photos);
         maxi_number_count_text.setText(max_no_of_photos);
+        loadRecycler();
     }
 
     public void imageWithDescription(final String type, final ScrollView scrollView) {
@@ -207,6 +217,7 @@ public class TakePhotoScreen extends AppCompatActivity {
                     int childCount = mobileNumberLayout.getChildCount();
                     int count = 0;
                     int sl_no = 0;
+                    String whereClause = "";String[] whereArgs = null;
                     if (childCount > 0) {
                         for (int i = 0; i < childCount; i++) {
                             JSONArray imageArray = new JSONArray();
@@ -257,14 +268,24 @@ public class TakePhotoScreen extends AppCompatActivity {
                                     imageValue.put("photograph_remark", description);
                                     imageValue.put("image", image_str.trim());
 
+                                whereClause = "form_id = ? and asset_id = ? and hab_code = ? and sl_no = ?";
+                                whereArgs = new String[]{form_id,asset_id,hab_code, String.valueOf(sl_no)};
+
+                                ArrayList<RoadListValue> imageCount = dbData.getParticularAgmtImages(form_id,asset_id,hab_code, String.valueOf(sl_no));
+                                if(imageCount.size()>0) {
+                                    rowInserted = db.update(DBHelper.AGMT_SAVE_IMAGE_TABLE, imageValue, whereClause, whereArgs);
+                                }
+                                else {
                                     rowInserted = db.insert(DBHelper.AGMT_SAVE_IMAGE_TABLE, null, imageValue);
+                                }
 
                                     if (count == childCount) {
                                         if (rowInserted > 0) {
 
                                             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
                                             dialog.dismiss();
-                                            Toast.makeText(TakePhotoScreen.this, getResources().getString(R.string.inserted_success), Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(TakePhotoScreen.this, getResources().getString(R.string.inserted_success), Toast.LENGTH_SHORT).show();
+                                            Toasty.success(TakePhotoScreen.this, "Success!", Toast.LENGTH_LONG, true).show();
                                             back_flag="yes";
                                             //Toasty.success(TakePhotoScreen.this, getResources().getString(R.string.inserted_success), Toasty.LENGTH_SHORT);
                                             onBackPressed();
@@ -780,6 +801,24 @@ public class TakePhotoScreen extends AppCompatActivity {
                     }
                 }).show();
 
+    }
+
+    public void loadRecycler(){
+        int count_size=Integer.parseInt(max_no_of_photos)-Integer.parseInt(min_no_of_photos);
+        int mini_size=Integer.parseInt(min_no_of_photos);
+        if(count_size==1){
+            count_size=2;
+        }
+        else if(count_size==0){
+            count_size=1;
+        }
+        countAdapter = new CountAdapter(this,count_size,mini_size);
+        count_recycler.setAdapter(countAdapter);
+    }
+
+    public void onClickedItems(String no_of_photos_){
+        no_of_photos=no_of_photos_;
+        imageWithDescription("",scrollView);
     }
 
 }

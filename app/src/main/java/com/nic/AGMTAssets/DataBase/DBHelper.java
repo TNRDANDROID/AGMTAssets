@@ -50,6 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         "bcode TEXT," +
                         "flag TEXT," +
                         "pvcode TEXT," +
+                        "photo_taken TEXT," +
                         "disp_value TEXT," +
                         "hab_code TEXT)");
         db.execSQL("CREATE TABLE " + AGMT_FORM_DISPLAY_DATA_TABLE + " ("

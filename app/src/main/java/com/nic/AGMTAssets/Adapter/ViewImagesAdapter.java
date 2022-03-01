@@ -18,6 +18,7 @@ import com.nic.AGMTAssets.Activity.FullImageActivity;
 import com.nic.AGMTAssets.Model.RoadListValue;
 import com.nic.AGMTAssets.R;
 import com.nic.AGMTAssets.Session.PrefManager;
+import com.nic.AGMTAssets.Utils.Utils;
 
 import java.util.List;
 
@@ -78,7 +79,12 @@ public class ViewImagesAdapter extends RecyclerView.Adapter<ViewImagesAdapter.My
         holder.delete_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save_and_delete_alert(position,"delete");
+                if(habitationList.size()!=1) {
+                    save_and_delete_alert(position, "delete");
+                }
+                else {
+                    Utils.showAlert(context,"You Can't delete all the photos" );
+                }
 
             }
         });

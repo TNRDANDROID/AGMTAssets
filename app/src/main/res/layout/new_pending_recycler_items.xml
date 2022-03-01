@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:elevation="@dimen/_7sdp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_margin="@dimen/_5sdp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_rl"
+        android:clickable="true"
+        android:minHeight="@dimen/_100sdp"
+        app:cardBackgroundColor="@color/white"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:elevation="@dimen/_5sdp"
+        android:outlineSpotShadowColor="@color/primary_orange_color"
+        android:outlineAmbientShadowColor="@color/primary_orange_color"
+        >
     <RelativeLayout
         android:padding="@dimen/_10sdp"
         android:id="@+id/hab_rl"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rect_full_curve_bg">
+        >
         <CheckBox
             android:visibility="gone"
             android:layout_width="wrap_content"
@@ -69,6 +79,7 @@
             android:textColor="@color/black"
             android:padding="@dimen/_7sdp"/>
     </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>
