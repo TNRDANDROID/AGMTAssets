@@ -160,8 +160,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     }
 
     private void checkLoginScreen() {
-        userName.setText("kpmkcpmvp1u3");
-        passwordEditText.setText("test123#$");
+       /* userName.setText("kpmkcpmvp1u3");
+        passwordEditText.setText("test123#$");*/
 
         if ((Utils.isOnline())) {
 
