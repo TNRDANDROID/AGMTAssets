@@ -34,16 +34,16 @@ public class AppVersionActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.btn_ok:
                showGooglePlay();
-                break;
+               break;
         }
     }
 
     public void showGooglePlay() {
         final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.tnrd.gov.in/")));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://drdpr.tn.gov.in/")));
         } catch (android.content.ActivityNotFoundException anfe) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.tnrd.gov.in/")));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://drdpr.tn.gov.in/")));
         }
     }
 }

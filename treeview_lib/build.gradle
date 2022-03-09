@@ -25,7 +25,7 @@ android {
             resValue "string", "SUB_DOMAIN", "10.163.19.140"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        production {
+       /* production {
             debuggable false
             minifyEnabled false
             shrinkResources false
@@ -35,6 +35,18 @@ android {
             resValue "string", "APP_MAIN_SERVICES_URL", "https://tnrd.gov.in/project/webservices_forms/road_asset/road_asset_services_test.php"
             resValue "string", "TNRD_HOST_NAME", "tnrd.gov.in"
             resValue "string", "SUB_DOMAIN", "www.tnrd.gov.in"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
+        }*/
+        production {
+            debuggable false
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+            resValue "string", "LOGIN_URL", " https://drdpr.tn.gov.in/project/webservices_forms/login_service/login_services.php"
+            resValue "string", "BASE_SERVICES_URL", "https://drdpr.tn.gov.in/project/webservices_forms/master_services/master_services.php"
+            resValue "string", "APP_MAIN_SERVICES_URL", "https://drdpr.tn.gov.in/project/webservices_forms/road_asset/road_asset_services_test.php"
+            resValue "string", "TNRD_HOST_NAME", "drdpr.tn.gov.in"
+            resValue "string", "SUB_DOMAIN", "www.drdpr.tn.gov.in"
             proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard-rules.pro'
         }
     }

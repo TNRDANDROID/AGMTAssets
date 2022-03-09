@@ -804,16 +804,27 @@ public class TakePhotoScreen extends AppCompatActivity {
     }
 
     public void loadRecycler(){
-        int count_size=Integer.parseInt(max_no_of_photos)-Integer.parseInt(min_no_of_photos);
-        int mini_size=Integer.parseInt(min_no_of_photos);
-        if(count_size==1){
-            count_size=2;
+        if(min_no_of_photos.equals("")){
+            min_no_of_photos="1";
         }
-        else if(count_size==0){
-            count_size=1;
+        if(max_no_of_photos.equals("")){
+            max_no_of_photos="1";
         }
-        countAdapter = new CountAdapter(this,count_size,mini_size);
-        count_recycler.setAdapter(countAdapter);
+        try{
+            int count_size=Integer.parseInt(max_no_of_photos)-Integer.parseInt(min_no_of_photos);
+            int mini_size=Integer.parseInt(min_no_of_photos);
+            if(count_size==1){
+                count_size=2;
+            }
+            else if(count_size==0){
+                count_size=1;
+            }
+            countAdapter = new CountAdapter(this,count_size,mini_size);
+            count_recycler.setAdapter(countAdapter);
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+        }
+
     }
 
     public void onClickedItems(String no_of_photos_){
