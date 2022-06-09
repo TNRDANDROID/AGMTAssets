@@ -2,6 +2,7 @@ package com.nic.AGMTAssets.Adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nic.AGMTAssets.Activity.AgmtTypeList;
 import com.nic.AGMTAssets.Activity.FullImageActivity;
+import com.nic.AGMTAssets.ImageZoom.ImageMatrixTouchHandler;
 import com.nic.AGMTAssets.Model.RoadListValue;
 import com.nic.AGMTAssets.R;
 import com.nic.AGMTAssets.Session.PrefManager;
@@ -88,6 +91,13 @@ public class ViewImagesAdapter extends RecyclerView.Adapter<ViewImagesAdapter.My
 
             }
         });
+
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExpandedImage(holder.image.getDrawable());
+            }
+        });
     }
 
 
@@ -142,6 +152,39 @@ public class ViewImagesAdapter extends RecyclerView.Adapter<ViewImagesAdapter.My
 
     }
 
+    private void ExpandedImage(Drawable profile) {
+        try {
+            //We need to get the instance of the LayoutInflater, use the context of this activity
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            //Inflate the view from a predefined XML layout
+            View ImagePopupLayout = inflater.inflate(R.layout.image_fullscreen_preview, null);
+
+            ImageView zoomImage = (ImageView) ImagePopupLayout.findViewById(R.id.image_preview);
+            zoomImage.setImageDrawable(profile);
+
+            ImageMatrixTouchHandler imageMatrixTouchHandler = new ImageMatrixTouchHandler(context);
+            zoomImage.setOnTouchListener(imageMatrixTouchHandler);
+//            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext, R.style.MyDialogTheme);
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+            dialogBuilder.setView(ImagePopupLayout);
+
+            final AlertDialog alert = dialogBuilder.create();
+            alert.getWindow().getAttributes().windowAnimations = R.style.dialog_animation_zoomInOut;
+            alert.show();
+            alert.getWindow().setBackgroundDrawableResource(R.color.full_transparent);
+            alert.setCanceledOnTouchOutside(true);
+
+            zoomImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alert.dismiss();
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 

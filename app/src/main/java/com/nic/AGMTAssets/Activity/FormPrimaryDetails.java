@@ -149,7 +149,7 @@ public class FormPrimaryDetails extends AppCompatActivity {
         startActivity(intent);
     }
     public void gotoMapPhoto(){
-        Intent intent = new Intent(FormPrimaryDetails.this, GoogleMapFragment.class);
+        Intent intent = new Intent(FormPrimaryDetails.this, OsmActivity.class);
         intent.putExtra("hab_code",hab_code);
         intent.putExtra("form_id",form_id);
         intent.putExtra("asset_id",asset_id);

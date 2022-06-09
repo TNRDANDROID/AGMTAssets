@@ -70,8 +70,8 @@ public class FullImageActivity extends AppCompatActivity implements Api.ServerRe
         home_img = findViewById(R.id.home_img);
         image_recycler = findViewById(R.id.image_preview_recyclerview);
         no_data_gif = findViewById(R.id.no_data_gif);
-        //image_recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
-        image_recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        image_recycler.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        //image_recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
 
         hab_code = String.valueOf(Integer.parseInt(getIntent().getStringExtra("hab_code")));
         type = getIntent().getStringExtra("type");

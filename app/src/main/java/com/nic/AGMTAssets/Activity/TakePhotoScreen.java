@@ -219,6 +219,14 @@ public class TakePhotoScreen extends AppCompatActivity {
                     int sl_no = 0;
                     String whereClause = "";String[] whereArgs = null;
                     if (childCount > 0) {
+                        dbData.open();
+                        whereClause = "form_id = ? and asset_id = ? and hab_code = ?";
+                        whereArgs = new String[]{form_id,asset_id,hab_code};
+                        ArrayList<RoadListValue> imageCount = dbData.getAgmtImages(form_id,asset_id,hab_code);
+                        if(imageCount.size()>0) {
+                            rowInserted = db.delete(DBHelper.AGMT_SAVE_IMAGE_TABLE,whereClause, whereArgs);
+                        }
+
                         for (int i = 0; i < childCount; i++) {
                             JSONArray imageArray = new JSONArray();
 
@@ -268,16 +276,16 @@ public class TakePhotoScreen extends AppCompatActivity {
                                     imageValue.put("photograph_remark", description);
                                     imageValue.put("image", image_str.trim());
 
-                                whereClause = "form_id = ? and asset_id = ? and hab_code = ? and sl_no = ?";
-                                whereArgs = new String[]{form_id,asset_id,hab_code, String.valueOf(sl_no)};
 
-                                ArrayList<RoadListValue> imageCount = dbData.getParticularAgmtImages(form_id,asset_id,hab_code, String.valueOf(sl_no));
-                                if(imageCount.size()>0) {
+
+                                //ArrayList<RoadListValue> imageCount = dbData.getParticularAgmtImages(form_id,asset_id,hab_code, String.valueOf(sl_no));
+                               /* if(imageCount.size()>0) {
                                     rowInserted = db.update(DBHelper.AGMT_SAVE_IMAGE_TABLE, imageValue, whereClause, whereArgs);
                                 }
                                 else {
                                     rowInserted = db.insert(DBHelper.AGMT_SAVE_IMAGE_TABLE, null, imageValue);
-                                }
+                                }*/
+                                rowInserted = db.insert(DBHelper.AGMT_SAVE_IMAGE_TABLE, null, imageValue);
 
                                     if (count == childCount) {
                                         if (rowInserted > 0) {

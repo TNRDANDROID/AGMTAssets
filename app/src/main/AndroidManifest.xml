@@ -42,7 +42,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.NewPendingScreen"></activity>
+        <activity android:name=".Activity.OsmActivity"></activity>
+        <activity android:name=".Activity.NewPendingScreen" />
         <activity android:name=".Activity.TakePhotoScreen" />
         <activity android:name=".Activity.FormPrimaryDetails" />
         <activity android:name=".Activity.ViewFormDetails" />
@@ -127,7 +128,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
+            android:value="@string/google_maps_key" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -376,7 +376,7 @@ public class dbData {
         Cursor cursor = null;
 
         try {
-            cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE+" where form_id = "+form_id+" and asset_id = "+asset_id+" and hab_code = "+hab_code+" and sl_no ="+sl_no,null);
+            cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE+" where form_id = "+form_id+" and asset_id = "+asset_id+" and hab_code = "+hab_code+" and sl_no = "+sl_no,null);
 
             //cursor = db.rawQuery("select * from "+DBHelper.AGMT_SAVE_IMAGE_TABLE,null);
             // cursor = db.query(CardsDBHelper.TABLE_CARDS,
@@ -406,7 +406,7 @@ public class dbData {
                 }
             }
         } catch (Exception e){
-            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+               Log.d("DEBUG_TAG", "Exception raised with a value of " + e);
         } finally{
             if (cursor != null) {
                 cursor.close();
